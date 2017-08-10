@@ -1,0 +1,117 @@
+header .nav-wide {
+    width: 100%;
+    min-width: 800px;
+    max-width: 1880px;
+    padding: 0 40px;
+    margin: 0 auto;
+}
+
+header.need-fixed {
+    position: fixed;
+    top: 0;
+}
+
+header {
+    position: relative;
+    min-width: 100%;
+    height: 60px;
+    margin: 0 auto;
+    background-color: #000;
+    font-weight: 500;
+    z-index: 2;
+}
+
+header .nav-wide {
+    width: 100%;
+    min-width: 800px;
+    max-width: 1880px;
+    padding: 0 40px;
+    margin: 0 auto;
+}
+
+header .nav-wide .nav-left {
+    float: left;
+    height: 60px;
+    font-size: 0;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+a:hover{
+    text-decoration:none;
+}
+.supnav-list .supnav-item > a:hover {
+    color: #c99a05;
+}
+
+.supnav-list {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 1;
+    margin-bottom: 0px !important;
+}
+
+header .nav-wide .nav-right {
+    float: right;
+    height: 60px;
+}
+
+header .nav-logo {
+    display: inline-block;
+    height: 20px;
+    width: 80px;
+    margin: 20px 0;
+    background-image: url(https://s1.tuchong.com/content-image/201611/b11a3466c73176fc90cdea2ba0b16154.png);
+    -moz-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+.nav-left .supnav-item:first-child {
+    margin-left: 34px;
+}
+
+.supnav-list .supnav-item {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 14px;
+}
+
+.supnav-list {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 1;
+    font-size: 0;
+}
+
+.supnav-list .supnav-item a {
+    display: block;
+    line-height: 60px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.nav-left .supnav-item > a {
+    padding: 0 26px;
+    letter-spacing: 2px;
+}
+
+.supnav-list .subnav-list {
+    position: absolute;
+    top: 59px;
+    z-index: 1;
+    left: -20px;
+    display: none;
+    width: 120px;
+    margin-top: 1px;
+    line-height: 1;
+    opacity: 0;
+    -webkit-transition: opacity .5s ease;
+    -moz-transition: opacity .5s ease;
+    transition: opacity .5s ease;
+    border-top: 10px solid rgba(0, 0, 0, 0);
+}
