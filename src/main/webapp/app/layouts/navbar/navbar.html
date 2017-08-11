@@ -5,40 +5,30 @@
                 <i class="nav-logo"></i>
             </a>
             <ul class="supnav-list">
-                <li class="supnav-item"><a href="https://tuchong.com/">首页</a></li>
-                <li class="supnav-item"><a href="https://tuchong.com/events/">活动</a></li>
-                <li class="supnav-item subnav-trigger">
-                    <a href="https://tuchong.com/explore/">发现</a>
-                    <ul class="subnav-list">
-                        <li><a href="https://tuchong.com/explore/">标签</a></li>
-                        <li><a href="https://tuchong.com/contacts/">摄影师</a></li>
-                        <li><a href="https://tuchong.com/vision/">影像频道</a></li>
-                        <li><a href="https://tuchong.com/course/">教程</a></li>
-                        <li><a href="https://tuchong.com/equipments/">器材</a></li>
-                    </ul>
+                <li class="supnav-item" ui-sref="home" ui-sref-active="active">
+                    <a href="https://tuchong.com/">首页</a>
                 </li>
-                <li class="supnav-item subnav-trigger">
-                    <a href="https://tuchong.com/groups/all/">交流</a>
-                    <ul class="subnav-list">
-                        <li><a href="https://tuchong.com/groups/all/">小组</a></li>
-                        <li><a href="https://tuchong.com/discussion/hot/">讨论</a></li>
-                    </ul>
+                <li class="supnav-item">
+                    <a href="https://tuchong.com/events/" ui-sref-active="sss">后期教程</a>
                 </li>
-                <li class="supnav-item subnav-trigger">
-                    <a>更多</a>
-                    <ul class="subnav-list">
-                        <li><a id="action" data-islogin="logout" data-href="https://stock.tuchong.com/?source=tc_pc_home_head">图虫创意</a></li>
-                        <li><a href="https://tuchong.com/app">下载APP</a></li>
-                        <li><a href="https://tuchong.com/info/contactus/">商务合作</a></li>
-                    </ul>
-                </li>
+                <!--<li class="supnav-item subnav-trigger">-->
+                <!--<a href="https://tuchong.com/explore/">发现</a>-->
+                <!--<ul class="subnav-list">-->
+                <!--<li><a href="https://tuchong.com/explore/">标签</a></li>-->
+                <!--<li><a href="https://tuchong.com/contacts/">摄影师</a></li>-->
+                <!--<li><a href="https://tuchong.com/vision/">影像频道</a></li>-->
+                <!--<li><a href="https://tuchong.com/course/">教程</a></li>-->
+                <!--<li><a href="https://tuchong.com/equipments/">器材</a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
             </ul>
         </div>
         <div class="nav-right">
             <div class="nav-search">
                 <i class="icon-search J-search-btn"></i>
                 <form action="https://tuchong.com/search/all/" method="get">
-                    <input required="" class="search-input" type="text" name="query" placeholder="搜索" autocomplete="off">
+                    <input required="" class="search-input" type="text" name="query" placeholder="搜索"
+                           autocomplete="off">
                 </form>
             </div>
             <a class="nav-login login-trigger">登录</a>

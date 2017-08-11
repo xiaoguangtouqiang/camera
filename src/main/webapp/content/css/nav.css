@@ -209,3 +209,13 @@ ul, li, p {
 .hot-posts ul, .hot-events ul {
     font-size: 0;
 }
+
+.post-cover .leave-right {
+    -webkit-animation: leave-right .3s ease-out;
+    -moz-animation: leave-right .3s ease-out;
+    animation: leave-right .3s ease-out;
+}
+
+.supnav-list .active {
+    background-color: rgba(93, 195, 243, 0.45);
+}
