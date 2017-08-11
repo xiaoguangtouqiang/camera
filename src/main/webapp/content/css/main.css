@@ -340,3 +340,9 @@ ui bootstrap tweaks
 
 
 /* jhipster-needle-css-add-main JHipster will add new css style */
+.container{
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 60px);
+}
