@@ -7,7 +7,9 @@ import com.photo.repository.UserRepository;
 import com.photo.security.SecurityUtils;
 import com.photo.service.MailService;
 import com.photo.service.UserService;
+import com.photo.service.ValidateCodeService;
 import com.photo.service.dto.UserDTO;
+import com.photo.web.rest.errors.CustomParameterizedException;
 import com.photo.web.rest.vm.KeyAndPasswordVM;
 import com.photo.web.rest.vm.ManagedUserVM;
 import com.photo.web.rest.util.HeaderUtil;
@@ -15,6 +17,7 @@ import com.photo.web.rest.util.HeaderUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -41,6 +44,9 @@ public class AccountResource {
 
     private final MailService mailService;
 
+    @Autowired
+    private ValidateCodeService validateCodeService;
+
     private static final String CHECK_ERROR_MESSAGE = "Incorrect password";
 
     public AccountResource(UserRepository userRepository, UserService userService,
@@ -62,8 +68,10 @@ public class AccountResource {
     @Timed
     public ResponseEntity registerAccount(HttpServletRequest request, @Valid @RequestBody ManagedUserVM managedUserVM) {
         HttpSession session = request.getSession();
-        String validate_code = session.getAttribute("validate_code").toString();
-        System.out.printf("validate_code:" + validate_code);
+        boolean check = validateCodeService.check(session, managedUserVM.getValidateCode());
+        if (!check) {
+            throw new CustomParameterizedException("验证码错误,请重新输入");
+        }
         HttpHeaders textPlainHeaders = new HttpHeaders();
         textPlainHeaders.setContentType(MediaType.TEXT_PLAIN);
         if (!checkPasswordLength(managedUserVM.getPassword())) {
@@ -78,7 +86,7 @@ public class AccountResource {
                         managedUserVM.getFirstName(), managedUserVM.getLastName(),
                         managedUserVM.getEmail(), managedUserVM.getImageUrl(),
                         managedUserVM.getLangKey());
-
+                mailService.sendActivationEmail(user);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             });
     }

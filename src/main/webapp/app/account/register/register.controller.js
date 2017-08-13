@@ -27,7 +27,7 @@
         vm.getTimeStamp();
 
         function register() {
-
+            vm.registerAccount.email = vm.registerAccount.login;
             vm.registerAccount.langKey = 'zh-cn';
             vm.doNotMatch = null;
             vm.error = null;
