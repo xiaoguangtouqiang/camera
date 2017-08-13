@@ -1,123 +1,150 @@
-<div>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1>Registration</h1>
+<div class="widget-dialog" id="login-dialog" style="z-index: 5; display: block;">
+    <div class="dialog-wrapper" style="width: 420px; padding-bottom: 20px;">
 
-            <div class="alert alert-success" ng-show="vm.success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
-            </div>
+        <div class="dialog-body">
+            <div class="login-dialog-content register">
+                <div class="group login">
+                    <form class="dialog-form login-form" action="api/register" method="post">
+                        <div class="dialog-title">
+                            <h3 class="fl"> 登录 </h3>
+                            <span class="login-tips fr">
+                还没有账号，
+                <a href="javascript:;" class="switch-type" data-type="login"> 立即注册 </a>
+                </span>
+                        </div>
 
-            <div class="alert alert-danger" ng-show="vm.error">
-                <strong>Registration failed!</strong> Please try again later.
-            </div>
+                        <div class="form-group">
+                            <input type="text" name="account" autofocus="" required="" placeholder="手机号\邮箱\用户名">
+                        </div>
 
-            <div class="alert alert-danger" ng-show="vm.errorUserExists">
-                <strong>Login name already registered!</strong> Please choose another one.
-            </div>
+                        <div class="form-group">
+                            <input type="password" name="password" required="" placeholder="输入密码">
+                            <a href="//tuchong.com/account/forget/" target="_blank" class="input-tips forget-password">忘记密码？</a>
+                        </div>
 
-            <div class="alert alert-danger" ng-show="vm.errorEmailExists">
-                <strong>Email is already in use!</strong> Please choose another one.
-            </div>
+                        <div class="form-group login-captcha">
+                            <input type="text" name="captcha_token" data-captchaid="" placeholder="验证码">
+                            <img class="captcha-img input-tips" src="">
+                        </div>
 
-            <div class="alert alert-danger" ng-show="vm.doNotMatch">
-                The password and its confirmation do not match!
+                        <div class="form-group form-msg">
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button class="submit-btn" href="javascript:;" type="submit">
+                                登录
+                            </button>
+                        </div>
+
+                        <div class="login-connect">
+                            <a href="//tuchong.com/qq/auth/" class="login-qq"></a>
+                            <a href="//tuchong.com/weixin/auth/" class="login-weixin"></a>
+                            <a href="//tuchong.com/weibo/auth/" class="login-weibo"></a>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="group register">
+                    <form class="dialog-form register-form" method="post">
+                        <div class="dialog-title">
+                            <h3 class="fl"> 注册图虫 </h3>
+                            <span class="login-tips fr">
+					已有账号，
+					<a href="javascript:;" class="switch-type" data-type="register"> 立即登录 </a>
+				</span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="mobile_number" class="J-mobile-input" data-invalid="true"
+                                   required="" placeholder="手机号码" ng-model="vm.registerAccount.login">
+                            <span class="input-tips warning" style="display: inline;">请输入正确的手机号码</span>
+                        </div>
+
+                        <div class="form-group register-captcha">
+                            <input type="text" name="captcha_token" ng-model="vm.registerAccount.validateCode" data-captchaid=""
+                                   placeholder="验证码">
+                            <img class="captcha-img input-tips" ng-click="vm.getTimeStamp()"
+                                 src="api/validate/image?timestamp={{vm.timestamp}}">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="sms_captcha" required="" placeholder="手机验证码">
+                            <a href="javascript:;" class="input-tips sms-captcha J-send-captcha">
+                                获取验证码
+                            </a>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" name="user_password" ng-model="vm.registerAccount.password"
+                                   required="" placeholder="密码6-16位，区分大小写">
+                            <span class="input-tips warning">
+					账号或者密码错误
+				</span>
+                        </div>
+
+                        <div class="form-group form-msg">
+                        </div>
+
+                        <div class="login-line">
+                            <button class="submit-btn" ng-click="vm.register()">
+                                注册
+                            </button>
+                        </div>
+
+                        <div class="login-connect">
+                            <a href="//tuchong.com/qq/auth/" class="login-qq"></a>
+                            <a href="//tuchong.com/weixin/auth/" class="login-weixin"></a>
+                            <a href="//tuchong.com/weibo/auth/" class="login-weibo"></a>
+                        </div>
+
+                        <div class="register-tips">
+                            「注册」即代表你已经认真阅读并同意接受
+                            <a href="//tuchong.com/info/terms/" target="_blank">用户协议</a>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="group user">
+                    <div class="dialog-form user-content">
+                        <div class="dialog-title">
+                            <h3 class="fl"> Hi,欢迎加入图虫 </h3>
+                        </div>
+
+                        <div class="form-group">
+                            <form class="J-logoForm logo-form text-center" method="patch" enctype="multipart/form-data"
+                                  action="">
+                                <input type="hidden" name="nonce" value="">
+                                <input type="hidden" name="site_id" value="">
+                                <input type="hidden" name="MAX_FILE_SIZE" value="4194304">
+                                <label class="logo-label">
+                                    <img class="logo-img" src="">
+                                    <span href="javascript:;" class="logo-tips">
+							设置头像
+						</span>
+                                    <input name="logo" accept="image/*" type="file" class="logo-file J-logo-file">
+                                </label>
+                            </form>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="user_name" required="" placeholder="输入昵称, 不超过10个汉字或20个英文字符">
+                            <p class="warning">
+                                昵称不能为空，且不能超过10个汉字或20个英文字符
+                            </p>
+                        </div>
+
+                        <div class="form-group form-msg">
+                        </div>
+
+                        <div class="login-line">
+                            <button class="submit-btn" href="javascript:;" type="submit" disabled="">
+                                完成
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-8 col-md-offset-2">
-            <form ng-show="!vm.success" name="form" role="form" novalidate ng-submit="vm.register()" show-validation>
-
-                <div class="form-group">
-                    <label class="control-label" for="login">Username</label>
-                    <input type="text" class="form-control" id="login" name="login" placeholder="Your username"
-                           ng-model="vm.registerAccount.login" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[_'.@A-Za-z0-9-]*$/" required>
-                    <div ng-show="form.login.$dirty && form.login.$invalid">
-                        <p class="help-block"
-                               ng-show="form.login.$error.required">
-                            Your username is required.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.login.$error.minlength">
-                            Your username is required to be at least 1 character.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.login.$error.maxlength">
-                            Your username cannot be longer than 50 characters.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.login.$error.pattern">
-                            Your username can only contain lower-case letters and digits.
-                    </p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Your email"
-                           ng-model="vm.registerAccount.email" ng-minlength=5 ng-maxlength=100 required>
-                    <div ng-show="form.email.$dirty && form.email.$invalid">
-                        <p class="help-block"
-                               ng-show="form.email.$error.required">
-                            Your email is required.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.email.$error.email">
-                            Your email is invalid.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.email.$error.minlength">
-                            Your email is required to be at least 5 characters.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.email.$error.maxlength">
-                            Your email cannot be longer than 100 characters.
-                        </p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="password">New password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="New password"
-                           ng-model="vm.registerAccount.password" ng-minlength=4 ng-maxlength=50 required>
-                    <div ng-show="form.password.$dirty && form.password.$invalid">
-                        <p class="help-block"
-                               ng-show="form.password.$error.required">
-                            Your password is required.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.password.$error.minlength">
-                            Your password is required to be at least 4 characters.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.password.$error.maxlength">
-                            Your password cannot be longer than 50 characters.
-                        </p>
-                    </div>
-                    <password-strength-bar password-to-check="vm.registerAccount.password"></password-strength-bar>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="confirmPassword">New password confirmation</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm the new password"
-                           ng-model="vm.confirmPassword" ng-minlength=4 ng-maxlength=50 required>
-                    <div ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
-                        <p class="help-block"
-                               ng-show="form.confirmPassword.$error.required">
-                            Your confirmation password is required.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.confirmPassword.$error.minlength">
-                            Your confirmation password is required to be at least 4 characters.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.confirmPassword.$error.maxlength">
-                            Your confirmation password cannot be longer than 50 characters.
-                        </p>
-                    </div>
-                </div>
-
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Register</button>
-            </form>
-            <p></p>
-            <div class="alert alert-warning">
-                If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-            </div>
-        </div>
+        <a class="dialog-close icon-close" data-close="dialog" ng-click="vm.cancel()"></a>
     </div>
 </div>

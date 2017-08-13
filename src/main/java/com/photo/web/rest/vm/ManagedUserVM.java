@@ -1,6 +1,7 @@
 package com.photo.web.rest.vm;
 
 import com.photo.service.dto.UserDTO;
+
 import javax.validation.constraints.Size;
 
 import java.time.Instant;
@@ -18,23 +19,33 @@ public class ManagedUserVM extends UserDTO {
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
 
+    private String validateCode;
+
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.
     }
 
-    public ManagedUserVM(Long id, String login, String password, String firstName, String lastName,
+    public ManagedUserVM(String id, String login, String password, String firstName, String lastName,
                          String email, boolean activated, String imageUrl, String langKey,
                          String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-                        Set<String> authorities) {
+                         Set<String> authorities) {
 
         super(id, login, firstName, lastName, email, activated, imageUrl, langKey,
-            createdBy, createdDate, lastModifiedBy, lastModifiedDate,  authorities);
+            createdBy, createdDate, lastModifiedBy, lastModifiedDate, authorities);
 
         this.password = password;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public String getValidateCode() {
+        return validateCode;
+    }
+
+    public void setValidateCode(String validateCode) {
+        this.validateCode = validateCode;
     }
 
     @Override

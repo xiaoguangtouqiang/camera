@@ -5,9 +5,9 @@
         .module('cameraApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService','$uibModal'];
+    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService','RegisterService'];
 
-    function NavbarController ($state, Auth, Principal, ProfileService, LoginService,$uibModal) {
+    function NavbarController ($state, Auth, Principal, ProfileService, LoginService,RegisterService) {
         var vm = this;
 
         vm.isNavbarCollapsed = true;
@@ -19,6 +19,7 @@
         });
 
         vm.login = login;
+        vm.register = register;
         vm.logout = logout;
         vm.toggleNavbar = toggleNavbar;
         vm.collapseNavbar = collapseNavbar;
@@ -27,6 +28,11 @@
         function login() {
             collapseNavbar();
             LoginService.open();
+        }
+
+        function register(){
+            collapseNavbar();
+            RegisterService.open();
         }
 
         function logout() {
