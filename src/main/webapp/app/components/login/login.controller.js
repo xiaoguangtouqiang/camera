@@ -1,28 +1,30 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('cameraApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance'];
+    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance', 'username'];
 
-    function LoginController ($rootScope, $state, $timeout, Auth, $uibModalInstance) {
+    function LoginController($rootScope, $state, $timeout, Auth, $uibModalInstance, username) {
         var vm = this;
 
         vm.authenticationError = false;
         vm.cancel = cancel;
         vm.credentials = {};
+        vm.username = username;
         vm.login = login;
         vm.password = null;
         vm.register = register;
         vm.rememberMe = true;
         vm.requestResetPassword = requestResetPassword;
-        vm.username = null;
 
-        $timeout(function (){angular.element('#username').focus();});
+        $timeout(function () {
+            angular.element('#username').focus();
+        });
 
-        function cancel () {
+        function cancel() {
             vm.credentials = {
                 username: null,
                 password: null,
@@ -32,7 +34,7 @@
             $uibModalInstance.dismiss('cancel');
         }
 
-        function login (event) {
+        function login(event) {
             event.preventDefault();
             Auth.login({
                 username: vm.username,
@@ -60,12 +62,12 @@
             });
         }
 
-        function register () {
+        function register() {
             $uibModalInstance.dismiss('cancel');
             $state.go('register');
         }
 
-        function requestResetPassword () {
+        function requestResetPassword() {
             $uibModalInstance.dismiss('cancel');
             $state.go('requestReset');
         }

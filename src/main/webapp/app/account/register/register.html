@@ -50,32 +50,33 @@
                             <h3 class="fl"> 注册图虫 </h3>
                             <span class="login-tips fr">
 					已有账号，
-					<a href="javascript:;" class="switch-type" data-type="register"> 立即登录 </a>
+					<a ng-click="vm.toLogin()" class="switch-type" data-type="register"> 立即登录 </a>
 				</span>
                         </div>
-
+                        <div ng-show="vm.success=='OK'">注册成功，即将跳转到登录页面</div>
                         <div class="form-group">
                             <input type="email" name="email" class="J-mobile-input" data-invalid="true"
                                    required="" placeholder="邮箱"
                                    ng-focus="vm.focusEmail=false"
                                    ng-blur="vm.focusEmail=true" ng-minlength="6" ng-maxlength="50"
                                    ng-model="vm.registerAccount.login">
-                            <span ng-show="registerForm.email.$invalid&&vm.focusEmail" class="input-tips warning" style="display: inline;">请输入正确的邮箱</span>
+                            <span ng-show="registerForm.email.$invalid&&vm.focusEmail" class="input-tips warning"
+                                  style="display: inline;">请输入正确的邮箱</span>
                         </div>
 
                         <div class="form-group register-captcha">
                             <input type="text" name="captcha_token" ng-model="vm.registerAccount.validateCode"
                                    data-captchaid=""
-                                   placeholder="验证码">
+                                   placeholder="验证码,不区分大小写">
                             <img class="captcha-img input-tips" ng-click="vm.getTimeStamp()"
                                  src="api/validate/image?timestamp={{vm.timestamp}}">
                         </div>
 
                         <!--<div class="form-group">-->
-                            <!--<input type="text" name="sms_captcha" required="" placeholder="手机验证码">-->
-                            <!--<a href="javascript:;" class="input-tips sms-captcha J-send-captcha">-->
-                                <!--获取验证码-->
-                            <!--</a>-->
+                        <!--<input type="text" name="sms_captcha" required="" placeholder="手机验证码">-->
+                        <!--<a href="javascript:;" class="input-tips sms-captcha J-send-captcha">-->
+                        <!--获取验证码-->
+                        <!--</a>-->
                         <!--</div>-->
 
                         <div class="form-group">
@@ -90,7 +91,8 @@
                         </div>
 
                         <div class="login-line">
-                            <button class="submit-btn" ng-click="vm.register()">
+                            <button class="submit-btn" ng-click="vm.register()"
+                                    ng-disabled="registerForm.email.$invalid">
                                 注册
                             </button>
                         </div>
@@ -141,7 +143,7 @@
                         </div>
 
                         <div class="login-line">
-                            <button class="submit-btn" href="javascript:;" type="submit" disabled="">
+                            <button class="submit-btn" href="javascript:;" type="submit">
                                 完成
                             </button>
                         </div>

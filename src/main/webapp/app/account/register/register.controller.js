@@ -6,20 +6,20 @@
         .controller('RegisterController', RegisterController);
 
 
-    RegisterController.$inject = ['$timeout', 'Auth', 'LoginService', '$uibModalInstance'];
+    RegisterController.$inject = ['$timeout', 'Auth', '$uibModalInstance'];
 
-    function RegisterController($timeout, Auth, LoginService, $uibModalInstance) {
+    function RegisterController($timeout, Auth, $uibModalInstance) {
         var vm = this;
 
         vm.doNotMatch = null;
         vm.error = null;
         vm.errorUserExists = null;
-        vm.login = LoginService.open;
         vm.register = register;
         vm.registerAccount = {};
         vm.success = null;
         vm.cancel = cancel;
         vm.getTimeStamp = getTimeStamp;
+        vm.toLogin = toLogin;
         $timeout(function () {
             angular.element('#login').focus();
         });
@@ -36,6 +36,9 @@
 
             Auth.createAccount(vm.registerAccount).then(function () {
                 vm.success = 'OK';
+                $timeout(function () {
+                    vm.toLogin();
+                }, 5000);
             }).catch(function (response) {
                 vm.success = null;
                 if (response.status === 400 && response.data === 'login already in use') {
@@ -54,6 +57,10 @@
 
         function getTimeStamp() {
             vm.timestamp = new Date().getTime();
+        }
+
+        function toLogin() {
+            $uibModalInstance.close(vm.registerAccount.login);
         }
     }
 })();

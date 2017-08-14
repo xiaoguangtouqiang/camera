@@ -221,5 +221,12 @@ ul, li, p {
 }
 
 ::-webkit-scrollbar {
-    width: 0px
+    width: 0px;
+}
+
+button[disabled], html input[disabled] {
+    cursor: default;
+    cursor: not-allowed !important;
+    box-shadow: none;
+    opacity: .65;
 }

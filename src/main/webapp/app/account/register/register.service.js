@@ -1,13 +1,13 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('cameraApp')
         .factory('RegisterService', RegisterService);
 
-    RegisterService.$inject = ['$uibModal'];
+    RegisterService.$inject = ['$uibModal', 'LoginService'];
 
-    function RegisterService ($uibModal) {
+    function RegisterService($uibModal, LoginService) {
         var service = {
             open: open
         };
@@ -19,7 +19,7 @@
 
         return service;
 
-        function open () {
+        function open() {
             if (modalInstance !== null) return;
             modalInstance = $uibModal.open({
                 animation: true,
@@ -27,8 +27,11 @@
                 controller: 'RegisterController',
                 controllerAs: 'vm'
             });
-            modalInstance.result.then(
-                resetModal,
+            modalInstance.result.then(function (data) {
+                    console.log("data:" + data);
+                    modalInstance = null;
+                    LoginService.open(data);
+                },
                 resetModal
             );
         }
