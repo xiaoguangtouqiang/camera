@@ -78,8 +78,8 @@ public class AccountResource {
             return new ResponseEntity<>(CHECK_ERROR_MESSAGE, HttpStatus.BAD_REQUEST);
         }
         return userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase())
-            .map(user -> new ResponseEntity<>("login already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
-            .map(user -> new ResponseEntity<>("email address already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
+            .map(user -> new ResponseEntity<>("邮箱已经被使用了", textPlainHeaders, HttpStatus.BAD_REQUEST))
+            .map(user -> new ResponseEntity<>("邮箱已经被使用了", textPlainHeaders, HttpStatus.BAD_REQUEST))
             .orElseGet(() -> {
                 User user = userService
                     .createUser(managedUserVM.getLogin(), managedUserVM.getPassword(),

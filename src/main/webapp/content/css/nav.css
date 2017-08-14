@@ -230,3 +230,12 @@ button[disabled], html input[disabled] {
     box-shadow: none;
     opacity: .65;
 }
+.warning{
+    color: #e60a05;
+}
+.success{
+    color:green;
+}
+.container{
+    padding:0 !important;
+}

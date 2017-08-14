@@ -53,7 +53,8 @@
 					<a ng-click="vm.toLogin()" class="switch-type" data-type="register"> 立即登录 </a>
 				</span>
                         </div>
-                        <div ng-show="vm.success=='OK'">注册成功，即将跳转到登录页面</div>
+                        <div ng-show="vm.success=='OK'" class="success">注册成功，即将跳转到登录页面</div>
+                        <div ng-show="vm.error=='ERROR'" class="warning">{{vm.errormsg}}</div>
                         <div class="form-group">
                             <input type="email" name="email" class="J-mobile-input" data-invalid="true"
                                    required="" placeholder="邮箱"

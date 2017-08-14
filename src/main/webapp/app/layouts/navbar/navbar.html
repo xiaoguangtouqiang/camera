@@ -31,8 +31,58 @@
                            autocomplete="off">
                 </form>
             </div>
+            {{vm.isAuthenticated}}111
+            <ul ng-show="vm.isAuthenticated" class="supnav-list">
+                <li class="supnav-item nav-user subnav-trigger">
+                    <a class="user-info" href="https://tuchong.com/2302829/">
+                        <img src="https://s1.tuchong.com/sites/230/2302829/logo_small.jpg?1">
+                        {{vm.account.login}}
+                    </a>
+
+                    <ul class="subnav-list">
+                        <li>
+                            <a href="https://tuchong.com/2302829/">我的主页</a>
+                        </li>
+                        <li>
+                            <a href="https://top.tuchong.com/pr">我的图库</a>
+                        </li>
+                        <li>
+                            <a href="https://tuchong.com/2302829/favorites">我的喜欢</a>
+                        </li>
+                        <li>
+                            <a href="https://tuchong.com/2302829/following">我的关注</a>
+                        </li>
+                        <li>
+                            <a href="https://tuchong.com/settings">设置</a>
+                        </li>
+                        <li>
+                            <a class="logout-trigger" ng-click="vm.logout();">退出</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="supnav-item nav-messages subnav-trigger" data-count="">
+                    <a class="icon-message" title="通知" href="https://tuchong.com/messages/interaction"></a>
+                    <ul class="subnav-list">
+                        <li><a href="https://tuchong.com/messages/interaction?tab=0">评论</a></li>
+                        <li><a href="https://tuchong.com/messages/interaction?tab=1">喜欢</a></li>
+                        <li><a href="https://tuchong.com/messages/interaction?tab=2">赞同</a></li>
+                        <li><a href="https://tuchong.com/messages/interaction?tab=3">收藏</a></li>
+                        <li class="subnav-separator"><a href="https://tuchong.com/messages/system?tab=0">站内信</a></li>
+                        <li><a href="https://tuchong.com/messages/system?tab=1">通知</a></li>
+                    </ul>
+                </li>
+                <li class="supnav-item subnav-trigger nav-publish">
+                    <a class="publish-btn btn btn-yellow" href="https://tuchong.com/new-photo/">发布</a>
+                    <ul class="subnav-list">
+                        <li><a href="https://tuchong.com/new-photo/">发照片</a></li>
+                        <li><a href="https://tuchong.com/new-text/">发文章</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <span ng-show="!vm.isAuthenticated">
             <a class="nav-login login-trigger" ng-click="vm.login()">登录</a>
             <a class="nav-register register-trigger" ng-click="vm.register()">注册</a>
+                </span>
         </div>
     </nav>
 </header>

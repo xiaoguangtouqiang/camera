@@ -41,12 +41,16 @@
                 }, 5000);
             }).catch(function (response) {
                 vm.success = null;
+                vm.getTimeStamp();
+                vm.error = 'ERROR';
                 if (response.status === 400 && response.data === 'login already in use') {
                     vm.errorUserExists = 'ERROR';
+                    vm.errormsg = response.data;
                 } else if (response.status === 400 && response.data === 'email address already in use') {
                     vm.errorEmailExists = 'ERROR';
+                    vm.errormsg = response.data;
                 } else {
-                    vm.error = 'ERROR';
+                    vm.errormsg = response.data.message;
                 }
             });
         }

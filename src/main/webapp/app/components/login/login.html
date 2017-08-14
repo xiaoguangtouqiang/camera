@@ -4,7 +4,7 @@
         <div class="dialog-body">
             <div class="login-dialog-content login">
                 <div class="group login">
-                    <form class="dialog-form login-form" action="/rest/accounts/login" method="post">
+                    <form class="dialog-form login-form" method="post">
                         <div class="dialog-title">
                             <h3 class="fl"> 登录 </h3>
                             <span class="login-tips fr" style="height:20px;">
@@ -14,11 +14,11 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="account" autofocus="" ng-model="vm.username" required="" placeholder="手机号\邮箱\用户名">
+                            <input type="text" name="account" autofocus="" ng-model="vm.username" required="" placeholder="邮箱">
                         </div>
 
                         <div class="form-group">
-                            <input type="password" name="password" required="" placeholder="输入密码">
+                            <input type="password" name="password" ng-model="vm.password" required="" placeholder="输入密码">
                             <a href="//tuchong.com/account/forget/" target="_blank" class="input-tips forget-password">忘记密码？</a>
                         </div>
 
@@ -31,16 +31,16 @@
                         </div>
 
                         <div class="form-group text-center">
-                            <button class="submit-btn" href="javascript:;" type="submit">
+                            <button class="submit-btn" ng-click="vm.login($event)">
                                 登录
                             </button>
                         </div>
 
-                        <div class="login-connect">
-                            <a href="//tuchong.com/qq/auth/" class="login-qq"></a>
-                            <a href="//tuchong.com/weixin/auth/" class="login-weixin"></a>
-                            <a href="//tuchong.com/weibo/auth/" class="login-weibo"></a>
-                        </div>
+                        <!--<div class="login-connect">-->
+                            <!--<a href="//tuchong.com/qq/auth/" class="login-qq"></a>-->
+                            <!--<a href="//tuchong.com/weixin/auth/" class="login-weixin"></a>-->
+                            <!--<a href="//tuchong.com/weibo/auth/" class="login-weibo"></a>-->
+                        <!--</div>-->
                     </form>
                 </div>
 
