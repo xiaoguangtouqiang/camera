@@ -239,3 +239,17 @@ button[disabled], html input[disabled] {
 .container{
     padding:0 !important;
 }
+.navLogo{
+    display: inline-flex;
+    height: 60px;
+}
+.navLogo i{
+    margin:auto !important;
+}
+.navLogo img{
+    height: 19px;
+    margin-top: 23px;
+}
+.margin-auto{
+    margin:auto;
+}
