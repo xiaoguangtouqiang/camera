@@ -63,5 +63,8 @@
   },
   "scripts": {
     "test": "gulp test"
+  },
+  "dependencies": {
+    "fine-uploader": "^5.15.0"
   }
 }

@@ -79,7 +79,6 @@ public class AccountResource {
         }
         return userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase())
             .map(user -> new ResponseEntity<>("邮箱已经被使用了", textPlainHeaders, HttpStatus.BAD_REQUEST))
-            .map(user -> new ResponseEntity<>("邮箱已经被使用了", textPlainHeaders, HttpStatus.BAD_REQUEST))
             .orElseGet(() -> {
                 User user = userService
                     .createUser(managedUserVM.getLogin(), managedUserVM.getPassword(),
