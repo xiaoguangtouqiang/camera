@@ -12,7 +12,7 @@
             parent: 'app',
             url: '/image-upload',
             data: {
-                authorities: []
+                authorities: ['ROLE_USER']
             },
             views: {
                 'content@': {

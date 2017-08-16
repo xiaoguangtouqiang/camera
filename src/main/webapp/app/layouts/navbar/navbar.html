@@ -7,8 +7,8 @@
                 <i class="nav-logo"></i>
             </a>
             <ul class="supnav-list">
-                <li class="supnav-item" ui-sref="home" ui-sref-active="active">
-                    <a href="https://tuchong.com/">首页</a>
+                <li class="supnav-item">
+                    <a ui-sref="home" ui-sref-active="active">首页</a>
                 </li>
                 <li class="supnav-item">
                     <a href="https://tuchong.com/events/" ui-sref-active="sss">后期教程</a>
@@ -74,9 +74,9 @@
                     </ul>
                 </li>
                 <li class="supnav-item subnav-trigger nav-publish">
-                    <a class="publish-btn btn btn-yellow" href="https://tuchong.com/new-photo/">发布</a>
+                    <a class="publish-btn btn btn-yellow" ui-sref="image-upload">发布</a>
                     <ul class="subnav-list">
-                        <li><a href="https://tuchong.com/new-photo/">发照片</a></li>
+                        <li><a ui-sref="image-upload">发照片</a></li>
                         <li><a href="https://tuchong.com/new-text/">发文章</a></li>
                     </ul>
                 </li>
