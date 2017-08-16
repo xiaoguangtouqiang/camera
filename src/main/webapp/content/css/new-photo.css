@@ -546,16 +546,16 @@ header .nav-wide .nav-right {
 
 header .nav-logo {
     display: inline-block;
-    height: 20px;
+    height: 29px;
     width: 80px;
     margin: 20px 0;
-    background-image: url(https://s1.tuchong.com/content-image/201611/b11a3466c73176fc90cdea2ba0b16154.png);
+    background-image: url('/content/images/logo.png');
     -moz-background-size: 100% 100%;
     background-size: 100% 100%
 }
 
 .nav-left .supnav-item:first-child {
-    margin-left: 34px
+    margin-left: 19px
 }
 
 .nav-left .supnav-item > a {
