@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -9,19 +9,31 @@
 
     function stateConfig($stateProvider) {
         $stateProvider.state('activate', {
-            parent: 'account',
+            parent: 'app',
             url: '/activate?key',
             data: {
                 authorities: [],
-                pageTitle: 'Activation'
+                pageTitle: '账户激活'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/account/activate/activate.html',
-                    controller: 'ActivationController',
+                    templateUrl: 'app/home/home.html',
+                    controller: 'HomeController',
                     controllerAs: 'vm'
                 }
-            }
+            },
+            onEnter: ['$uibModal', '$state', '$stateParams', function ($uibModal, $state, $stateParams) {
+                $uibModal.open({
+                    templateUrl: 'app/account/activate/activate.html',
+                    controller: 'ActivationController',
+                    controllerAs: 'vm',
+                    size: 'md'
+                }).result.then(function (data) {
+                    $state.go('^');
+                }, function () {
+                    $state.go('^');
+                });
+            }]
         });
     }
 })();

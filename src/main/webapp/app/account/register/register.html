@@ -93,7 +93,7 @@
 
                         <div class="login-line">
                             <button class="submit-btn" ng-click="vm.register()"
-                                    ng-disabled="registerForm.email.$invalid">
+                                    ng-disabled="registerForm.email.$invalid||vm.enable">
                                 注册
                             </button>
                         </div>

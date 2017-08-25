@@ -20,6 +20,7 @@
         vm.cancel = cancel;
         vm.getTimeStamp = getTimeStamp;
         vm.toLogin = toLogin;
+        vm.enable = false;
         $timeout(function () {
             angular.element('#login').focus();
         });
@@ -27,6 +28,7 @@
         vm.getTimeStamp();
 
         function register() {
+            vm.enable = true;
             vm.registerAccount.email = vm.registerAccount.login;
             vm.registerAccount.langKey = 'zh-cn';
             vm.doNotMatch = null;
@@ -35,11 +37,13 @@
             vm.errorEmailExists = null;
 
             Auth.createAccount(vm.registerAccount).then(function () {
+                vm.enable = false;
                 vm.success = 'OK';
                 $timeout(function () {
                     vm.toLogin();
                 }, 5000);
             }).catch(function (response) {
+                vm.enable = false;
                 vm.success = null;
                 vm.getTimeStamp();
                 vm.error = 'ERROR';

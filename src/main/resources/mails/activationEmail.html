@@ -30,7 +30,7 @@
     <table style="-webkit-font-smoothing: antialiased;font-family:'微软雅黑', 'Helvetica Neue', sans-serif, SimHei;padding:35px 50px;margin: 25px auto; background:rgb(247,246, 242); border-radius:5px" border="0" cellspacing="0" cellpadding="0" width="640" align="center">
         <tbody>
         <tr>
-            <td style="color:#000;padding:0 17px;"><img style="vertical-align: bottom;" width="47" height="40px" th:src="@{|${baseUrl}/content/images/camera_57px.png|}" alt="Raw" />
+            <td style="color:#000;padding:0 17px;"><img style="vertical-align: bottom;" width="40px" height="31px" th:src="@{|${baseUrl}/content/images/camera_57px.png|}" alt="Raw" />
                 <span style="color: rgba(128, 128, 128, 0.38);font-size: 11px;">Raw摄影社区</span>
             </td>
         </tr>
@@ -40,12 +40,12 @@
             </td>
         </tr>
         <tr>
-            <td style="padding: 20px 20px 20px 20px;">
+            <td style="padding: 10px 20px 10px 20px;">
                 Hi <span th:text="${user.login}"></span>,
             </td>
         </tr>
         <tr>
-            <td valign="middle" style="line-height:24px;padding: 15px 20px;">
+            <td valign="middle" style="line-height:24px;padding: 15px 20px;font-size: 15px;">
                 感谢您注册Raw摄影社区，请点击以下链接激活你的账户：
             </td>
         </tr>
@@ -58,9 +58,10 @@
             </td>
         </tr>
         <tr>
-            <td style="padding: 20px 20px 20px 20px">
-                <p style="margin: 8px 0;">如果点击下面的链接无效，请尝试将链接复制到浏览器地址栏访问。</p>
-                <p style="margin: 8px 0;">请勿回复此邮件，如果有疑问，请联系我们：<a style="color:#5083c0;text-decoration:none" href="mailto:support@coding.net">support@coding.net</a>
+            <td style="padding: 0px 20px 20px 20px;font-size:14px;color:rgba(128, 128, 128, 0.38)">
+                <p style="margin: 5px 0;">请在一天内激活账户，过期账户需要重新注册</p>
+                <p style="margin: 4px 0;">如果点击下面的链接无效，请尝试将链接复制到浏览器地址栏访问。</p>
+                <p style="margin: 4px 0;">请勿回复此邮件，如果有疑问，请联系我们：<a style="color:#5083c0;text-decoration:none" href="mailto:support@coding.net">support@coding.net</a>
                 </p>
             </td>
         </tr>

@@ -1,16 +1,43 @@
-<div>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1>Activation</h1>
+<div class="widget-dialog" id="login-dialog" style="z-index: 5; display: block;">
+    <div class="dialog-wrapper" style="width: 420px; padding-bottom: 20px;">
 
-            <div class="alert alert-success" ng-show="vm.success">
-                <strong>Your user has been activated.</strong> Please <a class="alert-link" href="" ng-click="vm.login()">sign in</a>.
+        <div class="dialog-body">
+            <div class="login-dialog-content register">
+                <div class="group register">
+                    <form name="registerForm" id="registerForm" class="dialog-form register-form" method="post">
+                        <div class="dialog-title">
+                            <h3 class="fl"> 激活账户</h3>
+                        </div>
+                        <div ng-show="vm.error=='ERROR'" class="warning">{{vm.errormsg}}</div>
+                        <div class="form-group">
+                            <input type="text" name="email" class="J-mobile-input" data-invalid="true"
+                                   required="" placeholder="昵称"
+                                   ng-focus="vm.focusEmail=false"
+                                   ng-blur="vm.focusEmail=true" ng-minlength="6" ng-maxlength="50"
+                                   ng-model="vm.registerAccount.login">
+                        </div>
+
+                        <div class="form-group register-captcha">
+                            <input type="text" name="captcha_token" ng-model="vm.registerEmail" class="readonly-color"
+                                   readonly>
+                        </div>
+
+                        <div class="login-line">
+                            <button class="submit-btn" ng-click="vm.register()"
+                                    ng-disabled="registerForm.email.$invalid||vm.enable">
+                                激活
+                            </button>
+                        </div>
+
+                        <div class="register-tips">
+                            「注册」即代表你已经认真阅读并同意接受
+                            <a href="//tuchong.com/info/terms/" target="_blank">用户协议</a>
+                        </div>
+                    </form>
+                </div>
+
             </div>
-
-            <div class="alert alert-danger" ng-show="vm.error">
-                <strong>Your user could not be activated.</strong> Please use the registration form to sign up.
-            </div>
-
         </div>
+        <a class="dialog-close icon-close" data-close="dialog" ng-click="vm.cancel()"></a>
     </div>
 </div>

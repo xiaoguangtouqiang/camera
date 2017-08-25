@@ -346,3 +346,6 @@ ui bootstrap tweaks
     overflow-x: hidden;
     height: calc(100vh - 60px);
 }
+.readonly-color{
+    background-color: rgba(128, 128, 128, 0.31);
+}
