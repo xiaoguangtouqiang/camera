@@ -28,7 +28,6 @@
                 controllerAs: 'vm'
             });
             modalInstance.result.then(function (data) {
-                    console.log("data:" + data);
                     modalInstance = null;
                     LoginService.open(data);
                 },
