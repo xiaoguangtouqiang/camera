@@ -27,7 +27,6 @@ public class ImageUploadResource {
                                  String type,
                                  int size,
                                  @RequestParam(value = "file") final MultipartFile file) throws IOException {
-        System.out.printf("size:"+size);
         File file1 = new File("D:/"+file.getOriginalFilename());
         file.transferTo(file1);
         return new ResponseEntity("ssss", HttpStatus.OK);

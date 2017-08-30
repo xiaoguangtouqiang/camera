@@ -28,7 +28,7 @@
 
         function linkFunc(scope, element, attrs) {
 
-
+            var chunkFiles = [];
             var $wrap = $('#uploader');
 
             // 图片容器
@@ -90,6 +90,7 @@
 
             // 实例化
             uploader = WebUploader.create({
+                auto: false,
                 pick: {
                     id: '#filePicker',
                     label: '点击选择图片'
@@ -377,6 +378,16 @@
 
                 updateStatus();
             }
+
+            uploader.onUploadAccept = function (file, response) {
+                if (response.id) {
+                    chunkFiles.push(response);
+                }
+            };
+
+            uploader.onUploadFinished = function(){
+                console.log("上传成功!");
+            };
 
             uploader.onUploadProgress = function (file, percentage) {
                 var $li = $('#' + file.id),
