@@ -1,15 +1,15 @@
 package com.photo.service;
 
+import com.photo.config.Constants;
 import com.photo.domain.Authority;
 import com.photo.domain.User;
 import com.photo.repository.AuthorityRepository;
-import com.photo.config.Constants;
 import com.photo.repository.UserRepository;
 import com.photo.security.AuthoritiesConstants;
 import com.photo.security.SecurityUtils;
-import com.photo.service.util.RandomUtil;
 import com.photo.service.dto.UserDTO;
-
+import com.photo.service.util.RandomUtil;
+import com.photo.web.rest.errors.CustomParameterizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -50,6 +53,19 @@ public class UserService {
         return userRepository.findOneByActivationKey(key)
             .map(user -> {
                 // activate given user for the registration key.
+                user.setActivated(true);
+                user.setActivationKey(null);
+                log.debug("Activated user: {}", user);
+                return user;
+            });
+    }
+
+    public Optional<User> activateRegistration(String key,String login) {
+        log.debug("Activating user for activation key {}", key);
+        return userRepository.findOneByActivationKey(key)
+            .map(user -> {
+                // activate given user for the registration key.
+                user.setLogin(login);
                 user.setActivated(true);
                 user.setActivationKey(null);
                 log.debug("Activated user: {}", user);
@@ -237,5 +253,14 @@ public class UserService {
      */
     public List<String> getAuthorities() {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+    }
+
+    public User findByActivateKey(String key) {
+        Optional<User> user = userRepository.findOneByActivationKey(key);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new CustomParameterizedException("无效的激活链接,请确认链接或重新注册");
+        }
     }
 }

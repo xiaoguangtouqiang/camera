@@ -212,4 +212,20 @@ public class AccountResource {
             password.length() >= ManagedUserVM.PASSWORD_MIN_LENGTH &&
             password.length() <= ManagedUserVM.PASSWORD_MAX_LENGTH;
     }
+
+    @GetMapping(path = "/account/activate/{key}")
+    public ResponseEntity<User> findUserByActivateKey(@PathVariable String key) {
+        return new ResponseEntity<>(userService.findByActivateKey(key), HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/account/activate")
+    public ResponseEntity activateUser(@RequestBody UserDTO userDTO) {
+        Optional<User> user = userRepository.findOneByActivationKey(userDTO.getActivationKey());
+        return user.map(u -> userRepository.findOneByLogin(userDTO.getLogin()).
+            map(t -> new ResponseEntity<>("昵称已经存在，请重新输入", HttpStatus.BAD_REQUEST)).
+            orElseGet(() -> {
+                userService.activateRegistration(userDTO.getActivationKey(), userDTO.getLogin());
+                return new ResponseEntity<>(HttpStatus.OK);
+            })).orElse(new ResponseEntity<>("无效的激活链接", HttpStatus.BAD_REQUEST));
+    }
 }

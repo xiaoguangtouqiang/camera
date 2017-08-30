@@ -1,14 +1,11 @@
 package com.photo.service.dto;
 
-import com.photo.config.Constants;
-
 import com.photo.domain.Authority;
 import com.photo.domain.User;
-
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,7 +18,6 @@ public class UserDTO {
     private String id;
 
     @NotBlank
-    @Pattern(regexp = Constants.LOGIN_REGEX)
     @Size(min = 1, max = 50)
     private String login;
 
@@ -52,6 +48,8 @@ public class UserDTO {
     private Instant lastModifiedDate;
 
     private Set<String> authorities;
+
+    private String activationKey;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -147,6 +145,14 @@ public class UserDTO {
 
     public Set<String> getAuthorities() {
         return authorities;
+    }
+
+    public String getActivationKey() {
+        return activationKey;
+    }
+
+    public void setActivationKey(String activationKey) {
+        this.activationKey = activationKey;
     }
 
     @Override
