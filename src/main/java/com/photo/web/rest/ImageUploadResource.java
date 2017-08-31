@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,16 +33,11 @@ public class ImageUploadResource {
     private UserRepository userRepository;
 
     @RequestMapping("/image/upload")
-    public ResponseEntity upload(String uid,
-                                 String md5,
-                                 String chunks,
-                                 String chunk,
-                                 String id,
+    public ResponseEntity upload(String id,
                                  String name,
                                  String type,
                                  int size,
-                                 @RequestParam(value = "file") final MultipartFile file, HttpServletRequest request) throws IOException {
-
+                                 @RequestParam(value = "file") final MultipartFile file) throws IOException {
         String login = SecurityUtils.getCurrentUserLogin();
         Optional<User> optional = userRepository.findOneByLogin(login);
         if (!optional.isPresent()) {
