@@ -1,0 +1,19 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "path",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "groupid",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170831113559",
+    "dto": "mapstruct",
+    "service": "serviceClass",
+    "entityTableName": "image_info",
+    "pagination": "infinite-scroll"
+}
