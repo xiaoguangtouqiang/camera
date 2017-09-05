@@ -4,6 +4,7 @@ package com.photo.domain;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "image_info")
-public class ImageInfo extends AbstractAuditingEntity {
+public class ImageInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,7 +24,7 @@ public class ImageInfo extends AbstractAuditingEntity {
     @Column(name = "path")
     private String path;
 
-    @Column(name = "groupid")
+    @Column(name = "group_Id")
     private String groupId;
 
     public String getId() {
@@ -59,15 +60,15 @@ public class ImageInfo extends AbstractAuditingEntity {
             return false;
         }
         ImageInfo imageInfo = (ImageInfo) o;
-        if (imageInfo.id == null || id == null) {
+        if (imageInfo.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, imageInfo.id);
+        return Objects.equals(getId(), imageInfo.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
@@ -76,6 +77,6 @@ public class ImageInfo extends AbstractAuditingEntity {
             "id='" + id + '\'' +
             ", path='" + path + '\'' +
             ", groupId='" + groupId + '\'' +
-            "} " + super.toString();
+            '}';
     }
 }

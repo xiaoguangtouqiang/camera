@@ -1,8 +1,8 @@
-package com.photo.web.rest.dto;
+package com.photo.service.dto;
+
 
 import java.io.Serializable;
 import java.util.Objects;
-
 
 /**
  * A DTO for the ImageInfo entity.
@@ -13,9 +13,7 @@ public class ImageInfoDTO implements Serializable {
 
     private String path;
 
-
-    private String groupid;
-
+    private String groupId;
 
     public String getId() {
         return id;
@@ -24,6 +22,7 @@ public class ImageInfoDTO implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
+
     public String getPath() {
         return path;
     }
@@ -31,12 +30,13 @@ public class ImageInfoDTO implements Serializable {
     public void setPath(String path) {
         this.path = path;
     }
-    public String getGroupid() {
-        return groupid;
+
+    public String getGroupId() {
+        return groupId;
     }
 
-    public void setGroupid(String groupid) {
-        this.groupid = groupid;
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
     @Override
@@ -49,23 +49,23 @@ public class ImageInfoDTO implements Serializable {
         }
 
         ImageInfoDTO imageInfoDTO = (ImageInfoDTO) o;
-
-        if ( ! Objects.equals(id, imageInfoDTO.id)) return false;
-
-        return true;
+        if(imageInfoDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), imageInfoDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "ImageInfoDTO{" +
-            "id=" + id +
-            ", path='" + path + "'" +
-            ", groupid='" + groupid + "'" +
+            "id='" + id + '\'' +
+            ", path='" + path + '\'' +
+            ", groupId='" + groupId + '\'' +
             '}';
     }
 }

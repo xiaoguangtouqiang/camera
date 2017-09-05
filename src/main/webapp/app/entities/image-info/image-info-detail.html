@@ -1,23 +1,27 @@
 
 <div>
-    <h2><span>ImageInfo</span> {{vm.imageInfo.id}}</h2>
+    <h2><span>Image Info</span> {{vm.imageInfo.id}}</h2>
     <hr>
-    <dl class="dl-horizontal">
-        <dt><span>Path</dt></dt>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Path</span></dt>
         <dd>
-            <span>{{vm.imageInfo.path}}<span>
+            <span>{{vm.imageInfo.path}}</span>
         </dd>
-        <hr>
-        <dt><span>Groupid</dt></dt>
+        <dt><span>Groupid</span></dt>
         <dd>
-            <span>{{vm.imageInfo.groupid}}<span>
+            <span>{{vm.imageInfo.groupid}}</span>
         </dd>
-        <hr>
     </dl>
 
     <button type="submit"
-            onclick="window.history.back()"
+            ui-sref="{{ vm.previousState }}"
             class="btn btn-info">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="image-info-detail.edit({id:vm.imageInfo.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
     </button>
 </div>

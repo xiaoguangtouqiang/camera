@@ -9,15 +9,20 @@
 
     function ImageInfoDeleteController($uibModalInstance, entity, ImageInfo) {
         var vm = this;
+
         vm.imageInfo = entity;
-        vm.clear = function() {
+        vm.clear = clear;
+        vm.confirmDelete = confirmDelete;
+
+        function clear () {
             $uibModalInstance.dismiss('cancel');
-        };
-        vm.confirmDelete = function (id) {
+        }
+
+        function confirmDelete (id) {
             ImageInfo.delete({id: id},
                 function () {
                     $uibModalInstance.close(true);
                 });
-        };
+        }
     }
 })();

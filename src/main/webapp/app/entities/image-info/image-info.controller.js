@@ -5,18 +5,29 @@
         .module('cameraApp')
         .controller('ImageInfoController', ImageInfoController);
 
-    ImageInfoController.$inject = ['$scope', '$state', 'ImageInfo', 'ParseLinks', 'AlertService'];
+    ImageInfoController.$inject = ['ImageInfo', 'ParseLinks', 'AlertService', 'paginationConstants'];
 
-    function ImageInfoController ($scope, $state, ImageInfo, ParseLinks, AlertService) {
+    function ImageInfoController(ImageInfo, ParseLinks, AlertService, paginationConstants) {
+
         var vm = this;
+
         vm.imageInfos = [];
-        vm.predicate = 'id';
-        vm.reverse = true;
+        vm.loadPage = loadPage;
+        vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.page = 0;
-        vm.loadAll = function() {
+        vm.links = {
+            last: 0
+        };
+        vm.predicate = 'id';
+        vm.reset = reset;
+        vm.reverse = true;
+
+        loadAll();
+
+        function loadAll () {
             ImageInfo.query({
                 page: vm.page,
-                size: 20,
+                size: vm.itemsPerPage,
                 sort: sort()
             }, onSuccess, onError);
             function sort() {
@@ -26,6 +37,7 @@
                 }
                 return result;
             }
+
             function onSuccess(data, headers) {
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
@@ -33,21 +45,21 @@
                     vm.imageInfos.push(data[i]);
                 }
             }
+
             function onError(error) {
                 AlertService.error(error.data.message);
             }
-        };
-        vm.reset = function() {
+        }
+
+        function reset () {
             vm.page = 0;
             vm.imageInfos = [];
-            vm.loadAll();
-        };
-        vm.loadPage = function(page) {
+            loadAll();
+        }
+
+        function loadPage(page) {
             vm.page = page;
-            vm.loadAll();
-        };
-
-        vm.loadAll();
-
+            loadAll();
+        }
     }
 })();

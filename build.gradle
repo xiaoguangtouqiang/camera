@@ -31,6 +31,10 @@ apply plugin: 'propdeps'
 apply plugin: 'com.moowork.node'
 apply plugin: 'com.moowork.gulp'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'idea'
+apply plugin: "net.ltgt.apt"
+
+
 defaultTasks 'bootRun'
 
 bootRepackage {

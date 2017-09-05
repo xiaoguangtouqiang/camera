@@ -5,38 +5,42 @@
         .module('cameraApp')
         .controller('ImageInfoDialogController', ImageInfoDialogController);
 
-    ImageInfoDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'ImageInfo'];
+    ImageInfoDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'ImageInfo'];
 
-    function ImageInfoDialogController ($scope, $stateParams, $uibModalInstance, entity, ImageInfo) {
+    function ImageInfoDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, ImageInfo) {
         var vm = this;
+
         vm.imageInfo = entity;
-        vm.load = function(id) {
-            ImageInfo.get({id : id}, function(result) {
-                vm.imageInfo = result;
-            });
-        };
+        vm.clear = clear;
+        vm.save = save;
 
-        var onSaveSuccess = function (result) {
-            $scope.$emit('cameraApp:imageInfoUpdate', result);
-            $uibModalInstance.close(result);
-            vm.isSaving = false;
-        };
+        $timeout(function (){
+            angular.element('.form-group:eq(1)>input').focus();
+        });
 
-        var onSaveError = function () {
-            vm.isSaving = false;
-        };
+        function clear () {
+            $uibModalInstance.dismiss('cancel');
+        }
 
-        vm.save = function () {
+        function save () {
             vm.isSaving = true;
             if (vm.imageInfo.id !== null) {
                 ImageInfo.update(vm.imageInfo, onSaveSuccess, onSaveError);
             } else {
                 ImageInfo.save(vm.imageInfo, onSaveSuccess, onSaveError);
             }
-        };
+        }
 
-        vm.clear = function() {
-            $uibModalInstance.dismiss('cancel');
-        };
+        function onSaveSuccess (result) {
+            $scope.$emit('cameraApp:imageInfoUpdate', result);
+            $uibModalInstance.close(result);
+            vm.isSaving = false;
+        }
+
+        function onSaveError () {
+            vm.isSaving = false;
+        }
+
+
     }
 })();
