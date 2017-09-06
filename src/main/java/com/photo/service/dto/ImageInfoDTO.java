@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * A DTO for the ImageInfo entity.
  */
-public class ImageInfoDTO implements Serializable {
+public class ImageInfoDTO extends EntityDTO implements Serializable {
 
     private String id;
 

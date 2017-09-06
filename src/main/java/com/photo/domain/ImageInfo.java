@@ -4,7 +4,6 @@ package com.photo.domain;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -12,7 +11,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "image_info")
-public class ImageInfo implements Serializable {
+public class ImageInfo extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
 
