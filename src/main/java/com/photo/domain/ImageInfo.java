@@ -26,6 +26,9 @@ public class ImageInfo extends AbstractAuditingEntity {
     @Column(name = "group_Id")
     private String groupId;
 
+    @Column(name = "name")
+    private String name;
+
     public String getId() {
         return id;
     }
@@ -48,6 +51,15 @@ public class ImageInfo extends AbstractAuditingEntity {
 
     public void setGroupId(String groupId) {
         this.groupId = groupId;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

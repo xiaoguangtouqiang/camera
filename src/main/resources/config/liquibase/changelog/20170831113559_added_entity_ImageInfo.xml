@@ -19,15 +19,19 @@
     -->
     <changeSet id="20170831113559-1" author="jhipster">
         <createTable tableName="image_info">
-            <column name="id" type="varchar(50)" >
+            <column name="id" type="varchar(50)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="path" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="true"/>
             </column>
 
             <column name="group_id" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="name" type="varchar(255)">
+                <constraints nullable="true"/>
             </column>
 
             <column name="created_by" type="varchar(50)">

@@ -15,6 +15,8 @@ public class ImageInfoDTO extends EntityDTO implements Serializable {
 
     private String groupId;
 
+    private String name;
+
     public String getId() {
         return id;
     }
@@ -39,6 +41,14 @@ public class ImageInfoDTO extends EntityDTO implements Serializable {
         this.groupId = groupId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -49,7 +59,7 @@ public class ImageInfoDTO extends EntityDTO implements Serializable {
         }
 
         ImageInfoDTO imageInfoDTO = (ImageInfoDTO) o;
-        if(imageInfoDTO.getId() == null || getId() == null) {
+        if (imageInfoDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getId(), imageInfoDTO.getId());
@@ -66,6 +76,7 @@ public class ImageInfoDTO extends EntityDTO implements Serializable {
             "id='" + id + '\'' +
             ", path='" + path + '\'' +
             ", groupId='" + groupId + '\'' +
-            '}';
+            ", name='" + name + '\'' +
+            "} " + super.toString();
     }
 }
