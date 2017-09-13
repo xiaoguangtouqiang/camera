@@ -22,14 +22,14 @@
                     controllerAs: 'vm'
                 }
             },
-            onEnter: ['$uibModal', '$state', '$stateParams', function ($uibModal, $state, $stateParams) {
+            onEnter: ['$uibModal', '$state', '$stateParams','LoginService', function ($uibModal, $state, $stateParams,LoginService) {
                 $uibModal.open({
                     templateUrl: 'app/account/activate/activate.html',
                     controller: 'ActivationController',
                     controllerAs: 'vm',
                     size: 'md'
                 }).result.then(function (data) {
-                    $state.go('^');
+                    LoginService.open(data);
                 }, function () {
                     $state.go('^');
                 });

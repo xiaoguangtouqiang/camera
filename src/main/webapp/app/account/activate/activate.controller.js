@@ -5,9 +5,9 @@
         .module('cameraApp')
         .controller('ActivationController', ActivationController);
 
-    ActivationController.$inject = ['$stateParams', '$uibModalInstance', 'ActivateService'];
+    ActivationController.$inject = ['$timeout', '$stateParams', '$uibModalInstance', 'ActivateService', 'AlertService'];
 
-    function ActivationController($stateParams, $uibModalInstance, ActivateService) {
+    function ActivationController($timeout, $stateParams, $uibModalInstance, ActivateService, AlertService) {
         var vm = this;
         vm.cancel = cancel;
         vm.active = active;
@@ -23,10 +23,14 @@
         }
 
         function active() {
-            ActivateService.save({activationKey: $stateParams.key, login: vm.registerAccount.login},function(){
-                console.log("账号激活成功");
+            ActivateService.save({activationKey: $stateParams.key, login: vm.registerAccount.login}, function () {
+                AlertService.success("账户激活成功，即将跳转到登录页面");
+                $timeout(function () {
+                    $uibModalInstance.close(vm.registerAccount.login);
+                }, 2000);
+            }, function (error) {
+                AlertService.error(error);
             })
         }
-
     }
 })();
