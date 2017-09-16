@@ -16,7 +16,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/image-upload/upload.html',
+                    templateUrl: 'app/entities/image-upload/upload.html',
                     controller: 'ImageUploadController',
                     controllerAs: 'vm'
                 }

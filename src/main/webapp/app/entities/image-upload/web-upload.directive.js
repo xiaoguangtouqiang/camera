@@ -8,9 +8,9 @@
         .module('cameraApp')
         .directive('webUpload', webUpload);
 
-    webUpload.$inject = ['AuthServerProvider'];
+    webUpload.$inject = ['AuthServerProvider','ChunkFile'];
 
-    function webUpload(AuthServerProvider) {
+    function webUpload(AuthServerProvider,ChunkFile) {
         var directive = {
             restrict: 'AE',
             transclude: true,
@@ -20,7 +20,7 @@
                 change: '&',
                 data: '='
             },
-            templateUrl: 'app/image-upload/web-upload.html',
+            templateUrl: 'app/entities/image-upload/web-upload.html',
             link: linkFunc
         };
 
@@ -101,7 +101,7 @@
                 accept: {
                     title: 'Images',
                     extensions: 'gif,jpg,jpeg,bmp,png',
-                    mimeTypes: 'image/*'
+                    mimeTypes: 'image/gif,image/png,image/jpeg,image/jpg,image/bmp'
                 },
 
                 // swf文件路径
@@ -110,12 +110,16 @@
                 disableGlobalDnd: true,
                 headers: {'Authorization': 'Bearer ' + AuthServerProvider.getToken()},
                 chunked: true,
+                formData: {
+                    uid: WebUploader.guid()
+                },
                 // server: 'http://webuploader.duapp.com/server/fileupload.php',
                 server: 'api/image/upload',
                 fileNumLimit: 300,
                 fileSizeLimit: 50 * 1024 * 1024,    // 200 M
                 fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
-            });
+            })
+            ;
             uploader.option('compress', false);
             // 添加“添加文件”的按钮，
             uploader.addButton({
@@ -385,8 +389,19 @@
                 }
             };
 
-            uploader.onUploadFinished = function(){
-                console.log("上传成功!");
+            uploader.onUploadFinished = function () {
+                console.log("chunkFiles:"+chunkFiles);
+                scope.$apply(function () {
+                    ChunkFile.finish({
+                        chunkFiles: chunkFiles
+                    }, function (data) {
+                        chunkFiles = [];
+                        _.forEach(data, function (file) {
+                            file.uploaded = true;
+                            scope.files.push(file);
+                        });
+                    });
+                });
             };
 
             uploader.onUploadProgress = function (file, percentage) {

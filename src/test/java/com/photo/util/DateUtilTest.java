@@ -11,4 +11,9 @@ public class DateUtilTest {
         System.out.printf(DateUtil.getNowYMD());
     }
 
+    @Test
+    public void testTmepPath() {
+        System.out.printf("tempFile:" + System.getProperty("java.io.tmpdir"));
+    }
+
 }

@@ -10,7 +10,5 @@
     function ImageUploadController(Principal, LoginService, $state) {
         var vm = this;
         vm.account = null;
-
-
     }
 })();
