@@ -15,22 +15,22 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity ImageInfo.
+        Added the entity Photo.
     -->
-    <changeSet id="20170831113559-1" author="jhipster">
-        <createTable tableName="image_info">
-            <column name="id" type="varchar(50)">
+    <changeSet id="20170919040601-1" author="jhipster">
+        <createTable tableName="photo">
+            <column name="id" type="varchar(255)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="path" type="varchar(255)">
+            <column name="title" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
 
-            <column name="photo_id" type="varchar(255)">
+            <column name="description" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
 
-            <column name="name" type="varchar(255)">
+            <column name="tags" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
 

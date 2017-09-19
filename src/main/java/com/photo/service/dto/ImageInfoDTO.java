@@ -13,7 +13,7 @@ public class ImageInfoDTO extends EntityDTO implements Serializable {
 
     private String path;
 
-    private String groupId;
+    private String photoId;
 
     private String name;
 
@@ -33,12 +33,12 @@ public class ImageInfoDTO extends EntityDTO implements Serializable {
         this.path = path;
     }
 
-    public String getGroupId() {
-        return groupId;
+    public String getPhotoId() {
+        return photoId;
     }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId;
     }
 
     public String getName() {
@@ -75,7 +75,7 @@ public class ImageInfoDTO extends EntityDTO implements Serializable {
         return "ImageInfoDTO{" +
             "id='" + id + '\'' +
             ", path='" + path + '\'' +
-            ", groupId='" + groupId + '\'' +
+            ", photoId='" + photoId + '\'' +
             ", name='" + name + '\'' +
             "} " + super.toString();
     }

@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tags",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170919040601",
+    "dto": "mapstruct",
+    "service": "serviceClass",
+    "entityTableName": "photo",
+    "pagination": "infinite-scroll"
+}

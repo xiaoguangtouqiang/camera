@@ -23,8 +23,8 @@ public class ImageInfo extends AbstractAuditingEntity {
     @Column(name = "path")
     private String path;
 
-    @Column(name = "group_Id")
-    private String groupId;
+    @Column(name = "photo_Id")
+    private String photoId;
 
     @Column(name = "name")
     private String name;
@@ -45,15 +45,12 @@ public class ImageInfo extends AbstractAuditingEntity {
         this.path = path;
     }
 
-    public String getGroupId() {
-        return groupId;
+    public String getPhotoId() {
+        return photoId;
     }
-
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId;
     }
-
-
     public String getName() {
         return name;
     }
@@ -87,7 +84,8 @@ public class ImageInfo extends AbstractAuditingEntity {
         return "ImageInfo{" +
             "id='" + id + '\'' +
             ", path='" + path + '\'' +
-            ", groupId='" + groupId + '\'' +
-            '}';
+            ", photoId='" + photoId + '\'' +
+            ", name='" + name + '\'' +
+            "} " + super.toString();
     }
 }

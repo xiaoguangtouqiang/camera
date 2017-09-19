@@ -3,7 +3,7 @@
                 options="{server:'api/file/upload/chunk', accept: {extensions: 'gif,jpg,jpeg,bmp,png'}}"></web-upload>
 </div>
 <div class="aside-zone">
-    <form class="post-form" action="/rest/posts" method="POST">
+    <form class="post-form"  method="POST">
         <input type="hidden" name="type" value="multi-photo">
         <label>标题</label>
         <input type="text" class="m-input" name="title" value="" autofocus="" autocomplete="off">
@@ -64,7 +64,6 @@
                 <li class="option-item" data-value="by,nc,sa">原创,CC协议共享(署名-非商业性使用-相同方式共享)</li>
             </ul>
         </div>
-        <input type="submit" class="publish-btn" value="发布">
+        <input type="submit" class="publish-btn" value="发布" ng-click="vm.publish()">
     </form>
 </div>
-<!--<script type="text/javascript" src="app/image-upload/image-upload.js"></script>-->
