@@ -8,9 +8,9 @@
         .module('cameraApp')
         .directive('webUpload', webUpload);
 
-    webUpload.$inject = ['AuthServerProvider','ChunkFile'];
+    webUpload.$inject = ['AuthServerProvider', '$parse', 'ChunkFile'];
 
-    function webUpload(AuthServerProvider,ChunkFile) {
+    function webUpload(AuthServerProvider, $parse, ChunkFile) {
         var directive = {
             restrict: 'AE',
             transclude: true,
@@ -30,7 +30,7 @@
 
             var chunkFiles = [];
             var $wrap = $('#uploader');
-
+            scope.files = [];
             // 图片容器
             var $queue = $('<ul class="filelist"></ul>')
                     .appendTo($wrap.find('.queueList')),
@@ -88,8 +88,7 @@
                 throw new Error('WebUploader does not support the browser you are using.');
             }
 
-            // 实例化
-            uploader = WebUploader.create({
+            var settings = {
                 auto: false,
                 pick: {
                     id: '#filePicker',
@@ -98,11 +97,6 @@
                 dnd: '#uploader .queueList',
                 paste: document.body,
                 compress: false,
-                accept: {
-                    title: 'Images',
-                    extensions: 'gif,jpg,jpeg,bmp,png',
-                    mimeTypes: 'image/gif,image/png,image/jpeg,image/jpg,image/bmp'
-                },
 
                 // swf文件路径
                 swf: 'webapp/bower_components/fex-webuploader/dist/Uploader.swf',
@@ -114,12 +108,20 @@
                     uid: WebUploader.guid()
                 },
                 // server: 'http://webuploader.duapp.com/server/fileupload.php',
-                server: 'api/image/upload',
+                server: 'api/file/upload/chunk',
                 fileNumLimit: 300,
                 fileSizeLimit: 50 * 1024 * 1024,    // 200 M
                 fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
-            })
-            ;
+            };
+
+            if (attrs.options) {
+                var options = $parse(attrs.options)(scope);
+                Object.assign(settings, options);
+            }
+
+            // 实例化
+            uploader = WebUploader.create(settings);
+
             uploader.option('compress', false);
             // 添加“添加文件”的按钮，
             uploader.addButton({
@@ -390,13 +392,13 @@
             };
 
             uploader.onUploadFinished = function () {
-                console.log("chunkFiles:"+chunkFiles);
+                console.log("chunkFiles:" + chunkFiles);
                 scope.$apply(function () {
                     ChunkFile.finish({
                         chunkFiles: chunkFiles
                     }, function (data) {
                         chunkFiles = [];
-                        _.forEach(data, function (file) {
+                        angular.forEach(data, function (file) {
                             file.uploaded = true;
                             scope.files.push(file);
                         });

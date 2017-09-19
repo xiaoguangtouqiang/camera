@@ -1,7 +1,6 @@
 package com.photo.web.rest;
 
 import com.photo.service.ChunkFileService;
-import com.photo.service.ImageUploadService;
 import com.photo.service.dto.ChunkFileDTO;
 import com.photo.service.dto.ChunkFinishDTO;
 import com.photo.service.dto.FileDTO;
@@ -21,11 +20,11 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api")
-public class ImageUploadResource {
+public class ChunkFileUploadResource {
     @Autowired
     private ChunkFileService chunkFileService;
 
-    @RequestMapping(value = "/image/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/file/upload/chunk", method = RequestMethod.POST)
     public ResponseEntity<ChunkFileDTO> upload(String uid,
                                                String id,
                                                String name,
@@ -52,10 +51,10 @@ public class ImageUploadResource {
         return chunkFile;
     }
 
-    @RequestMapping(value = "/image/upload", method = RequestMethod.PUT)
+    @RequestMapping(value = "/file/upload/chunk", method = RequestMethod.PUT)
     public ResponseEntity upload(@RequestBody ChunkFinishDTO finishDTO) throws IOException {
         List<FileDTO> result = chunkFileService.finish(finishDTO);
-        return new ResponseEntity(result,HttpStatus.OK);
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
 }

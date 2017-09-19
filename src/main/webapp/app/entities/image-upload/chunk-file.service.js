@@ -7,7 +7,7 @@
     ChunkFile.$inject = ['$resource'];
 
     function ChunkFile($resource) {
-        var resourceUrl = 'api/image/upload';
+        var resourceUrl = 'api/file/upload/chunk';
 
         return $resource(resourceUrl, {}, {
             'remove': {method: 'DELETE'},
