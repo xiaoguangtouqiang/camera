@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -48,10 +49,13 @@ public class PhotoResource {
      */
     @PostMapping("/photos")
     @Timed
-    public ResponseEntity<PhotoDTO> createPhoto(@RequestBody PhotoDTO photoDTO) throws URISyntaxException {
+    public ResponseEntity<PhotoDTO> createPhoto(@RequestBody PhotoDTO photoDTO) throws URISyntaxException, IOException {
         log.debug("REST request to save Photo : {}", photoDTO);
         if (photoDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new photo cannot already have an ID")).body(null);
+        }
+        if (photoDTO.getUploadFiles() == null || photoDTO.getUploadFiles().size() == 0) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "没有图片")).body(null);
         }
         PhotoDTO result = photoService.save(photoDTO);
         return ResponseEntity.created(new URI("/api/photos/" + result.getId()))
@@ -70,7 +74,7 @@ public class PhotoResource {
      */
     @PutMapping("/photos")
     @Timed
-    public ResponseEntity<PhotoDTO> updatePhoto(@RequestBody PhotoDTO photoDTO) throws URISyntaxException {
+    public ResponseEntity<PhotoDTO> updatePhoto(@RequestBody PhotoDTO photoDTO) throws URISyntaxException, IOException {
         log.debug("REST request to update Photo : {}", photoDTO);
         if (photoDTO.getId() == null) {
             return createPhoto(photoDTO);

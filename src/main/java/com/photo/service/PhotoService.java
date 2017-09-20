@@ -2,8 +2,8 @@ package com.photo.service;
 
 import com.photo.domain.ImageInfo;
 import com.photo.domain.Photo;
+import com.photo.repository.ImageInfoRepository;
 import com.photo.repository.PhotoRepository;
-import com.photo.security.SecurityUtils;
 import com.photo.service.dto.FileDTO;
 import com.photo.service.dto.PhotoDTO;
 import com.photo.service.fs.Location;
@@ -16,6 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.Date;
 import java.util.List;
 
 
@@ -32,9 +36,12 @@ public class PhotoService {
 
     private final PhotoMapper photoMapper;
 
-    public PhotoService(PhotoRepository photoRepository, PhotoMapper photoMapper) {
+    private final ImageInfoRepository imageInfoRepository;
+
+    public PhotoService(PhotoRepository photoRepository, PhotoMapper photoMapper, ImageInfoRepository imageInfoRepository) {
         this.photoRepository = photoRepository;
         this.photoMapper = photoMapper;
+        this.imageInfoRepository = imageInfoRepository;
     }
 
     /**
@@ -43,25 +50,40 @@ public class PhotoService {
      * @param photoDTO the entity to save
      * @return the persisted entity
      */
-    public PhotoDTO save(PhotoDTO photoDTO) {
+    public PhotoDTO save(PhotoDTO photoDTO) throws IOException {
         log.debug("Request to save Photo : {}", photoDTO);
         Photo photo = photoMapper.toEntity(photoDTO);
         photo = photoRepository.save(photo);
-        //
-        String login = SecurityUtils.getCurrentUserLogin();
+
         String photoId = photo.getId();
         List<FileDTO> uploadFiles = photoDTO.getUploadFiles();
-        for (int i = 0; i < uploadFiles.size(); i++) {
+        for (FileDTO uploadFile : uploadFiles) {
+
+            String name = transferImageName(uploadFile.getName());
+            String targetPath = saveFile(uploadFile.getPath(), name);
             ImageInfo imageInfo = new ImageInfo();
             imageInfo.setPhotoId(photoId);
-            imageInfo.setName(uploadFiles.get(i).getName());
-            File sourceFile = new File(uploadFiles.get(i).getPath());
-            File targetFile = new File(Location.getUserUploadPath(login));
-//            imageInfo.setPath();
+            imageInfo.setName(name);
+            imageInfo.setPath(targetPath);
+            imageInfoRepository.save(imageInfo);
         }
 
 
         return photoMapper.toDto(photo);
+    }
+
+    private String saveFile(String sourcePath, String name) throws IOException {
+        File source = new File(sourcePath);
+        File target = new File(Location.getUploadImagePath(name));
+        if (!target.getParentFile().exists()) {
+            target.getParentFile().mkdirs();
+        }
+        Files.move(source.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        return target.getPath();
+    }
+
+    private String transferImageName(String name) {
+        return new Date().getTime() + "_" + name;
     }
 
     /**

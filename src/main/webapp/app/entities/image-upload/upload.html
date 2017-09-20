@@ -1,14 +1,14 @@
 <div class="main-zone">
-    <web-upload files="vm.files"
+    <web-upload files="vm.photo.uploadFiles"
                 options="{server:'api/file/upload/chunk', accept: {extensions: 'gif,jpg,jpeg,bmp,png'}}"></web-upload>
 </div>
 <div class="aside-zone">
     <form class="post-form"  method="POST">
         <input type="hidden" name="type" value="multi-photo">
         <label>标题</label>
-        <input type="text" class="m-input" name="title" value="" autofocus="" autocomplete="off">
+        <input type="text" ng-model="vm.photo.title" class="m-input" name="title" value="" autofocus="" autocomplete="off">
         <label>作品描述</label>
-        <textarea class="m-input" name="content" placeholder="说说你的拍摄经历..."></textarea>
+        <textarea class="m-input" name="content" ng-modal="vm.photo.description" placeholder="说说你的拍摄经历..."></textarea>
         <div class="widget-taginput">
             <label>标签<em>（输入标签内容回车即可添加标签）</em></label>
             <span class="tags-count">0/10</span>

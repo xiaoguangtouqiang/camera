@@ -5,15 +5,18 @@
         .module('cameraApp')
         .controller('ImageUploadController', ImageUploadController);
 
-    ImageUploadController.$inject = ['Principal', 'LoginService', '$state'];
+    ImageUploadController.$inject = ['Principal', 'LoginService', '$state', 'Photo'];
 
-    function ImageUploadController(Principal, LoginService, $state) {
+    function ImageUploadController(Principal, LoginService, $state, Photo) {
         var vm = this;
         vm.account = null;
         vm.publish = publish;
+        vm.photo = {};
 
         function publish() {
-            console.log("vm.files:"+angular.toJson(vm.files));
+            Photo.save(vm.photo, function () {
+                console.log("保存成功!");
+            })
         }
     }
 })();

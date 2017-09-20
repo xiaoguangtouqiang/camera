@@ -1,23 +1,38 @@
 package com.photo.service.fs;
 
 
+import com.photo.security.SecurityUtils;
+
 /**
  * Created by DiDi on 2017/8/31.
  */
 public class Location {
 
-    //根目录
-    private static String basePath = "/config/%s";
+    private static String ROOT = "/var/volummes/";
 
-    //用户目录
-    public static String getUserPath(String login) {
-        return String.format(basePath, login);
-    }
+    private static String IMAGE = "images";
 
     public static String getUserUploadPath(String login) {
-        StringBuilder stringBuilder = new StringBuilder(getUserPath(login));
-//        stringBuilder.append("/").append(DateUtil.getNowYMD()).append("/");
-        return stringBuilder.toString();
+        return appendPath(getImageUploadPath(), login);
     }
 
+    public static String getUploadImagePath(String fileName) {
+        String userUploadPath = getUserUploadPath(SecurityUtils.getCurrentUserLogin());
+        return appendPath(userUploadPath, fileName);
+    }
+
+    private static String getImageUploadPath() {
+        return appendPath(ROOT, IMAGE);
+    }
+
+    private static String appendPath(String path, String... more) {
+        StringBuilder sb = new StringBuilder(path);
+        for (String str : more) {
+            if (sb.charAt(sb.length() - 1) != '/') {
+                sb.append("/");
+            }
+            sb.append(str);
+        }
+        return sb.toString();
+    }
 }
