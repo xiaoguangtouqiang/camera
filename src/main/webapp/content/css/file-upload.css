@@ -88,9 +88,8 @@
 }
 
 #uploader .filelist li {
-    width: 250px;
-    height: 250px;
-    background: url(../images/bg.png) no-repeat;
+    width: 220px;
+    height: 220px;
     text-align: center;
     margin: 0 8px 20px 0;
     position: relative;
@@ -378,4 +377,13 @@
 
 .webuploader-pick-hover{
     background: #f9f9f9  !important;
+}
+.display-flex{
+    display: flex !important;
+}
+.upload-photo{
+    margin: auto;
+}
+.filelist .upload-item{
+    border: 2px solid #e0e0e0;
 }

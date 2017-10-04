@@ -8,6 +8,7 @@ import com.photo.service.dto.FileDTO;
 import com.photo.service.dto.PhotoDTO;
 import com.photo.service.fs.Location;
 import com.photo.service.mapper.PhotoMapper;
+import com.photo.web.rest.errors.CustomParameterizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -57,6 +58,9 @@ public class PhotoService {
 
         String photoId = photo.getId();
         List<FileDTO> uploadFiles = photoDTO.getUploadFiles();
+        if (uploadFiles == null || uploadFiles.size() == 0) {
+            throw new CustomParameterizedException("请上传图片!");
+        }
         for (FileDTO uploadFile : uploadFiles) {
 
             String name = transferImageName(uploadFile.getName());

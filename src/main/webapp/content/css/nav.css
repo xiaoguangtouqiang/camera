@@ -230,26 +230,41 @@ button[disabled], html input[disabled] {
     box-shadow: none;
     opacity: .65;
 }
-.warning{
+
+.warning {
     color: #e60a05;
 }
-.success{
-    color:green;
+
+.success {
+    color: green;
 }
-.container{
-    padding:0 !important;
+
+.container {
+    padding: 0 !important;
 }
-.navLogo{
+
+.navLogo {
     display: inline-flex;
     height: 60px;
 }
-.navLogo i{
-    margin:auto !important;
+
+.navLogo i {
+    margin: auto !important;
 }
-.navLogo img{
+
+.navLogo img {
     height: 19px;
-    margin-top: 23px;
+    margin: auto;
 }
-.margin-auto{
-    margin:auto;
+
+.navLogo span {
+    font-size: 25px;
+    color: white;
+    margin: auto;
+    font-weight: 800;
+    margin-left: 10px;
+}
+
+.margin-auto {
+    margin: auto;
 }

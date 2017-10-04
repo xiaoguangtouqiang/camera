@@ -32,8 +32,7 @@
             var $wrap = $('#uploader');
             scope.files = [];
             // 图片容器
-            var $queue = $('<ul class="filelist"></ul>')
-                    .appendTo($wrap.find('.queueList')),
+            var $queue = $wrap.find('.filelist'),
 
                 // 状态栏，包括进度和控制按钮
                 $statusBar = $wrap.find('.statusBar'),
@@ -60,8 +59,8 @@
                 ratio = window.devicePixelRatio || 1,
 
                 // 缩略图大小
-                thumbnailWidth = 250 * ratio,
-                thumbnailHeight = 250 * ratio,
+                thumbnailWidth = 220 * ratio,
+                thumbnailHeight = 220 * ratio,
 
                 // 可能有pedding, ready, uploading, confirm, done.
                 state = 'pedding',
@@ -243,22 +242,6 @@
                         });
                     } else {
                         $wrap.css('filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation=' + (~~((file.rotation / 90) % 4 + 4) % 4) + ')');
-                        // use jquery animate to rotation
-                        // $({
-                        //     rotation: rotation
-                        // }).animate({
-                        //     rotation: file.rotation
-                        // }, {
-                        //     easing: 'linear',
-                        //     step: function( now ) {
-                        //         now = now * Math.PI / 180;
-
-                        //         var cos = Math.cos( now ),
-                        //             sin = Math.sin( now );
-
-                        //         $wrap.css( 'filter', "progid:DXImageTransform.Microsoft.Matrix(M11=" + cos + ",M12=" + (-sin) + ",M21=" + sin + ",M22=" + cos + ",SizingMethod='auto expand')");
-                        //     }
-                        // });
                     }
                 });
                 $li.appendTo($queue);
@@ -320,7 +303,6 @@
 
             function setState(val) {
                 var file, stats;
-
                 if (val === state) {
                     return;
                 }
@@ -371,7 +353,7 @@
                     case 'finish':
                         stats = uploader.getStats();
                         if (stats.successNum) {
-                            alert('上传成功');
+                            console.log('上传成功');
                         } else {
                             // 没有成功的图片，重设
                             state = 'done';
