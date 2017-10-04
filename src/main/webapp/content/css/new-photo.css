@@ -1538,7 +1538,7 @@ html, body {
     right: 340px;
     bottom: 0;
     height: 100%;
-    padding: 22px 30px 80px;
+    padding: 0px 30px 80px;
     overflow-y: auto
 }
 
@@ -1554,7 +1554,6 @@ html, body {
 }
 
 .main-zone .photo-list {
-    margin-top: 32px;
     margin-left: -40px;
     font-size: 0
 }

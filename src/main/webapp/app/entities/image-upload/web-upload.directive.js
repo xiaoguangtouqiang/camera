@@ -60,8 +60,8 @@
                 ratio = window.devicePixelRatio || 1,
 
                 // 缩略图大小
-                thumbnailWidth = 110 * ratio,
-                thumbnailHeight = 110 * ratio,
+                thumbnailWidth = 250 * ratio,
+                thumbnailHeight = 250 * ratio,
 
                 // 可能有pedding, ready, uploading, confirm, done.
                 state = 'pedding',
@@ -89,10 +89,9 @@
             }
 
             var settings = {
-                auto: false,
+                auto: true,
                 pick: {
-                    id: '#filePicker',
-                    label: '点击选择图片'
+                    id: '#upload-photo'
                 },
                 dnd: '#uploader .queueList',
                 paste: document.body,
@@ -101,13 +100,12 @@
                 // swf文件路径
                 swf: 'webapp/bower_components/fex-webuploader/dist/Uploader.swf',
 
-                disableGlobalDnd: true,
+                disableGlobalDnd: false,
                 headers: {'Authorization': 'Bearer ' + AuthServerProvider.getToken()},
                 chunked: true,
                 formData: {
                     uid: WebUploader.guid()
                 },
-                // server: 'http://webuploader.duapp.com/server/fileupload.php',
                 server: 'api/file/upload/chunk',
                 fileNumLimit: 300,
                 fileSizeLimit: 50 * 1024 * 1024,    // 200 M
