@@ -1,6 +1,7 @@
 package com.photo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.photo.security.SecurityUtils;
 import com.photo.service.PhotoService;
 import com.photo.web.rest.util.HeaderUtil;
 import com.photo.web.rest.util.PaginationUtil;
@@ -126,5 +127,13 @@ public class PhotoResource {
         log.debug("REST request to delete Photo : {}", id);
         photoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @RequestMapping(value = "/photos/user/current", method = RequestMethod.GET)
+    public ResponseEntity<List<PhotoDTO>> queryCurrentUserPhotos(@ApiParam Pageable pageable) {
+        String user = SecurityUtils.getCurrentUserLogin();
+        Page<PhotoDTO> page = photoService.listPhotosByUser(pageable, user);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/photos");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 }

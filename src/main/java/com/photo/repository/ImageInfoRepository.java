@@ -1,9 +1,10 @@
 package com.photo.repository;
 
 import com.photo.domain.ImageInfo;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import org.springframework.data.jpa.repository.*;
+import java.util.List;
 
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ImageInfoRepository extends JpaRepository<ImageInfo,Long> {
-    
+public interface ImageInfoRepository extends JpaRepository<ImageInfo, String> {
+
+    List<ImageInfo> findAllByPhotoId(String photoId);
 }

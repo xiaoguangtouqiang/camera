@@ -1,9 +1,10 @@
 package com.photo.repository;
 
 import com.photo.domain.Photo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import org.springframework.data.jpa.repository.*;
 
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface PhotoRepository extends JpaRepository<Photo,String> {
+public interface PhotoRepository extends JpaRepository<Photo, String> {
 
+    Page<Photo> findAllByCreatedBy(Pageable pageable, String createdBy);
 }

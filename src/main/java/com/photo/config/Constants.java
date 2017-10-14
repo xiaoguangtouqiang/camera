@@ -13,6 +13,8 @@ public final class Constants {
 
     // 根目录
     public static final String CAMERA = "camera";
+    //用户上传图片
+    public static final String UPLOAD_IMAGES = "images";
 
     private Constants() {
     }

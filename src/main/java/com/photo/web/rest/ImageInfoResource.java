@@ -104,7 +104,7 @@ public class ImageInfoResource {
      */
     @GetMapping("/image-infos/{id}")
     @Timed
-    public ResponseEntity<ImageInfoDTO> getImageInfo(@PathVariable Long id) {
+    public ResponseEntity<ImageInfoDTO> getImageInfo(@PathVariable String id) {
         log.debug("REST request to get ImageInfo : {}", id);
         ImageInfoDTO imageInfoDTO = imageInfoService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(imageInfoDTO));
@@ -118,7 +118,7 @@ public class ImageInfoResource {
      */
     @DeleteMapping("/image-infos/{id}")
     @Timed
-    public ResponseEntity<Void> deleteImageInfo(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteImageInfo(@PathVariable String id) {
         log.debug("REST request to delete ImageInfo : {}", id);
         imageInfoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();

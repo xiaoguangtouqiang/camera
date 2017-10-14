@@ -1,38 +1,91 @@
 package com.photo.service.fs;
 
 
-import com.photo.security.SecurityUtils;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.photo.config.Constants.CAMERA;
 
 /**
  * Created by DiDi on 2017/8/31.
  */
 public class Location {
 
-    private static String ROOT = "/var/volummes/";
+    private String home;
 
-    private static String IMAGE = "images";
+    private List<String> paths;
 
-    public static String getUserUploadPath(String login) {
-        return appendPath(getImageUploadPath(), login);
+    public Location() {
+        this(null, new ArrayList<>());
     }
 
-    public static String getUploadImagePath(String fileName) {
-        String userUploadPath = getUserUploadPath(SecurityUtils.getCurrentUserLogin());
-        return appendPath(userUploadPath, fileName);
+    public Location(List<String> paths) {
+        this(null, paths);
     }
 
-    private static String getImageUploadPath() {
-        return appendPath(ROOT, IMAGE);
+    public Location(String home, List<String> paths) {
+        this.home = home;
+        this.paths = paths;
     }
 
-    private static String appendPath(String path, String... more) {
-        StringBuilder sb = new StringBuilder(path);
-        for (String str : more) {
-            if (sb.charAt(sb.length() - 1) != '/') {
-                sb.append("/");
-            }
-            sb.append(str);
+    public String getHome() {
+        if (home == null) {
+            String pdas_home = System.getenv("PDAS_HOME");
+            home = pdas_home == null ? "/var/lib/docker/volumes" : pdas_home;
         }
-        return sb.toString();
+        return home;
     }
+
+    public void setHome(String home) {
+        this.home = home;
+    }
+
+    public Path path() {
+        return Paths.get(getHome(), paths.toArray(new String[paths.size()]));
+    }
+
+    public Path relativize() {
+        return Paths.get(getHome()).relativize(path());
+    }
+
+    public File toFile() {
+        return path().toFile();
+    }
+
+    private Location path(String path, String... more) {
+        paths.add(path);
+        Collections.addAll(this.paths, more);
+        return this;
+    }
+
+    private Location format(String... args) {
+        String format = String.format(paths.stream().collect(Collectors.joining("/")), args);
+        this.paths = new ArrayList<>();
+        Collections.addAll(this.paths, format.split("/"));
+        return this;
+    }
+
+    public Location get(String... more) {
+        Collections.addAll(this.paths, more);
+        return this;
+    }
+
+    public static Location root() {
+        return new Location();
+    }
+
+    public static Location camera() {
+        return root().path(CAMERA);
+    }
+
+    public static Location getUploadImagePath(String userId) {
+        return camera().get(userId);
+    }
+
+
 }

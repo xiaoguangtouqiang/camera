@@ -9,7 +9,7 @@ public class LocationTest {
 
     @Test
     public void testUserUploadImagePath() {
-        System.out.printf("ss:" + Location.getUserUploadPath("o野蛮o"));
+        System.out.printf("ss:" + Location.getUploadImagePath("o野蛮o").path().toString());
     }
 
 }

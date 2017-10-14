@@ -6,7 +6,6 @@ import com.photo.service.dto.ImageInfoDTO;
 import com.photo.service.mapper.ImageInfoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -64,7 +63,7 @@ public class ImageInfoService {
      *  @return the entity
      */
     @Transactional(readOnly = true)
-    public ImageInfoDTO findOne(Long id) {
+    public ImageInfoDTO findOne(String id) {
         log.debug("Request to get ImageInfo : {}", id);
         ImageInfo imageInfo = imageInfoRepository.findOne(id);
         return imageInfoMapper.toDto(imageInfo);
@@ -75,8 +74,10 @@ public class ImageInfoService {
      *
      *  @param id the id of the entity
      */
-    public void delete(Long id) {
+    public void delete(String id) {
         log.debug("Request to delete ImageInfo : {}", id);
         imageInfoRepository.delete(id);
     }
+
+
 }

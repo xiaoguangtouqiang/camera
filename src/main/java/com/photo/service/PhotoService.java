@@ -7,10 +7,12 @@ import com.photo.repository.PhotoRepository;
 import com.photo.service.dto.FileDTO;
 import com.photo.service.dto.PhotoDTO;
 import com.photo.service.fs.Location;
+import com.photo.service.mapper.ImageInfoMapper;
 import com.photo.service.mapper.PhotoMapper;
 import com.photo.web.rest.errors.CustomParameterizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,9 @@ public class PhotoService {
 
     private final PhotoMapper photoMapper;
 
+    @Autowired
+    private ImageInfoMapper imageInfoMapper;
+
     private final ImageInfoRepository imageInfoRepository;
 
     public PhotoService(PhotoRepository photoRepository, PhotoMapper photoMapper, ImageInfoRepository imageInfoRepository) {
@@ -51,6 +56,7 @@ public class PhotoService {
      * @param photoDTO the entity to save
      * @return the persisted entity
      */
+    @Transactional
     public PhotoDTO save(PhotoDTO photoDTO) throws IOException {
         log.debug("Request to save Photo : {}", photoDTO);
         Photo photo = photoMapper.toEntity(photoDTO);
@@ -62,7 +68,6 @@ public class PhotoService {
             throw new CustomParameterizedException("请上传图片!");
         }
         for (FileDTO uploadFile : uploadFiles) {
-
             String name = transferImageName(uploadFile.getName());
             String targetPath = saveFile(uploadFile.getPath(), name);
             ImageInfo imageInfo = new ImageInfo();
@@ -71,14 +76,12 @@ public class PhotoService {
             imageInfo.setPath(targetPath);
             imageInfoRepository.save(imageInfo);
         }
-
-
         return photoMapper.toDto(photo);
     }
 
     private String saveFile(String sourcePath, String name) throws IOException {
         File source = new File(sourcePath);
-        File target = new File(Location.getUploadImagePath(name));
+        File target = Location.getUploadImagePath(name).toFile();
         if (!target.getParentFile().exists()) {
             target.getParentFile().mkdirs();
         }
@@ -113,7 +116,9 @@ public class PhotoService {
     public PhotoDTO findOne(String id) {
         log.debug("Request to get Photo : {}", id);
         Photo photo = photoRepository.findOne(id);
-        return photoMapper.toDto(photo);
+        PhotoDTO photoDTO = photoMapper.toDto(photo);
+
+        return photoDTO;
     }
 
     /**
@@ -124,5 +129,16 @@ public class PhotoService {
     public void delete(String id) {
         log.debug("Request to delete Photo : {}", id);
         photoRepository.delete(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<PhotoDTO> listPhotosByUser(Pageable pageable, String user) {
+        Page<Photo> photos = photoRepository.findAllByCreatedBy(pageable, user);
+        Page<PhotoDTO> photoDTOS = photos.map(t -> photoMapper.toDto(t));
+        photoDTOS.forEach(p -> {
+            List<ImageInfo> imageInfos = imageInfoRepository.findAllByPhotoId(p.getId());
+            p.setImages(imageInfoMapper.toDto(imageInfos));
+        });
+        return photoDTOS;
     }
 }

@@ -20,6 +20,8 @@ public class PhotoDTO extends EntityDTO implements Serializable {
 
     private List<FileDTO> uploadFiles;
 
+    private List<ImageInfoDTO> images;
+
     public String getId() {
         return id;
     }
@@ -60,6 +62,14 @@ public class PhotoDTO extends EntityDTO implements Serializable {
         this.uploadFiles = uploadFiles;
     }
 
+    public List<ImageInfoDTO> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageInfoDTO> images) {
+        this.images = images;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -88,6 +98,8 @@ public class PhotoDTO extends EntityDTO implements Serializable {
             ", title='" + title + '\'' +
             ", description='" + description + '\'' +
             ", tags='" + tags + '\'' +
+            ", uploadFiles=" + uploadFiles +
+            ", images=" + images +
             "} " + super.toString();
     }
 }

@@ -33,7 +33,6 @@
                            autocomplete="off">
                 </form>
             </div>
-            {{vm.isAuthenticated}}111
             <ul ng-show="vm.isAuthenticated" class="supnav-list">
                 <li class="supnav-item nav-user subnav-trigger">
                     <a class="user-info" href="https://tuchong.com/2302829/">
@@ -43,7 +42,7 @@
 
                     <ul class="subnav-list">
                         <li>
-                            <a href="https://tuchong.com/2302829/">我的主页</a>
+                            <a ui-sref="user-posts">我的主页</a>
                         </li>
                         <li>
                             <a href="https://top.tuchong.com/pr">我的图库</a>
