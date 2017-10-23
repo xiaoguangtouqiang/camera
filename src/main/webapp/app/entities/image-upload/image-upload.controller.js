@@ -15,7 +15,7 @@
 
         function publish() {
             Photo.save(vm.photo, function () {
-                console.log("保存成功!");
+                $state.go('user-posts');
             })
         }
     }

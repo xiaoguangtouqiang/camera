@@ -4,12 +4,15 @@ import com.photo.domain.ImageInfo;
 import com.photo.domain.Photo;
 import com.photo.repository.ImageInfoRepository;
 import com.photo.repository.PhotoRepository;
+import com.photo.security.SecurityUtils;
 import com.photo.service.dto.FileDTO;
 import com.photo.service.dto.PhotoDTO;
 import com.photo.service.fs.Location;
 import com.photo.service.mapper.ImageInfoMapper;
 import com.photo.service.mapper.PhotoMapper;
+import com.photo.util.UUidGenerator;
 import com.photo.web.rest.errors.CustomParameterizedException;
+import liquibase.util.file.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +25,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.Date;
 import java.util.List;
+
+import static com.photo.config.Constants.UPLOAD_IMAGES;
 
 
 /**
@@ -67,30 +71,43 @@ public class PhotoService {
         if (uploadFiles == null || uploadFiles.size() == 0) {
             throw new CustomParameterizedException("请上传图片!");
         }
+
         for (FileDTO uploadFile : uploadFiles) {
             String name = transferImageName(uploadFile.getName());
-            String targetPath = saveFile(uploadFile.getPath(), name);
+            String path = saveFile(uploadFile.getPath(), name);
             ImageInfo imageInfo = new ImageInfo();
             imageInfo.setPhotoId(photoId);
             imageInfo.setName(name);
-            imageInfo.setPath(targetPath);
+            imageInfo.setPath(path);
             imageInfoRepository.save(imageInfo);
         }
         return photoMapper.toDto(photo);
     }
 
+    /**
+     * 上传文件，将文件从sourcepath移动到图片目录中
+     *
+     * @param sourcePath
+     * @param name
+     * @return 相对跟目录路径
+     * @throws IOException
+     */
     private String saveFile(String sourcePath, String name) throws IOException {
         File source = new File(sourcePath);
-        File target = Location.getUploadImagePath(name).toFile();
+        String userId = SecurityUtils.getCurrentUserId();
+        Location location = Location.getUploadImagePath(userId, name);
+        File target = location.toFile();
         if (!target.getParentFile().exists()) {
             target.getParentFile().mkdirs();
         }
         Files.move(source.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        return target.getPath();
+        return location.relativize(UPLOAD_IMAGES).toString();
     }
 
+    //生成图片名称
     private String transferImageName(String name) {
-        return new Date().getTime() + "_" + name;
+        String ext = FilenameUtils.getExtension(name);
+        return UUidGenerator.randomUUID() + "." + ext;
     }
 
     /**

@@ -60,7 +60,7 @@ public class UserService {
             });
     }
 
-    public Optional<User> activateRegistration(String key,String login) {
+    public Optional<User> activateRegistration(String key, String login) {
         log.debug("Activating user for activation key {}", key);
         return userRepository.findOneByActivationKey(key)
             .map(user -> {
@@ -261,6 +261,15 @@ public class UserService {
             return user.get();
         } else {
             throw new CustomParameterizedException("无效的激活链接,请确认链接或重新注册");
+        }
+    }
+
+    public User findOneByLogin(String login) {
+        Optional<User> user = userRepository.findOneByLogin(login);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new CustomParameterizedException("不存在用户");
         }
     }
 }

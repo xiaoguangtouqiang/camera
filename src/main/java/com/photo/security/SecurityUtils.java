@@ -1,5 +1,8 @@
 package com.photo.security;
 
+import com.photo.config.context.ApplicationContextProvider;
+import com.photo.domain.User;
+import com.photo.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -78,5 +81,12 @@ public final class SecurityUtils {
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(authority));
         }
         return false;
+    }
+
+    public static String getCurrentUserId() {
+        String currentUserLogin = getCurrentUserLogin();
+        UserService userService = ApplicationContextProvider.getContext().getBean(UserService.class);
+        User user = userService.findOneByLogin(currentUserLogin);
+        return user.getId();
     }
 }

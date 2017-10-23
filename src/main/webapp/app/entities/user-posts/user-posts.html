@@ -1,10 +1,11 @@
 <div class="page-content">
     <ul class="pagelist-wrapper">
-        <div class="post-photo J-post-photo" ng-repeat="photo in vm.photos" data-postindex="0" data-type="multi-photo" data-url="https://tuchong.com/2302829/15466119/" data-page="1"
+        <div class="post-photo J-post-photo" ng-repeat="photo in vm.photos" data-postindex="0" data-type="multi-photo"
+             data-url="{{photo.images[0].path}}" data-page="1"
              data-width="3200" data-height="2133" data-imgid="13600671"
              style="height: 311px; width: 414px; margin-bottom: 12px; display: inline-block; margin-left: 0px;">
-            <img class="" data-lazy-type="image" data-lazy-url="//photo.tuchong.com/2302829/ft640/13600671.webp"
-                 style="background-color: #bfb081;" src="//photo.tuchong.com/2302829/ft640/13600671.webp">
+            <img data-lazy-type="image" data-lazy-url="{{photo.images[0].path | imagePrefix}}"
+                 style="background-color: #bfb081;" ng-src="{{photo.images[0].path|imagePrefix}}">
             <div class="post-info">
                 <p>
                     <span class="post-title">  </span>

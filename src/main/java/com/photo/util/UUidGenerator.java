@@ -16,4 +16,8 @@ public class UUidGenerator implements IdentifierGenerator {
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
         return UUID.randomUUID().toString().replace("-", "").toLowerCase();
     }
+
+    public static String randomUUID(){
+        return UUID.randomUUID().toString().replace("-", "").toLowerCase();
+    }
 }

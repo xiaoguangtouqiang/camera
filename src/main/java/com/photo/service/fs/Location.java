@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.photo.config.Constants.CAMERA;
+import static com.photo.config.Constants.UPLOAD_IMAGES;
 
 /**
  * Created by DiDi on 2017/8/31.
@@ -50,7 +51,11 @@ public class Location {
     }
 
     public Path relativize() {
-        return Paths.get(getHome()).relativize(path());
+        return Paths.get(camera().path().toString()).relativize(path());
+    }
+
+    public Path relativize(String path) {
+        return Paths.get(camera().get(path).path().toString()).relativize(path());
     }
 
     public File toFile() {
@@ -83,9 +88,15 @@ public class Location {
         return root().path(CAMERA);
     }
 
-    public static Location getUploadImagePath(String userId) {
-        return camera().get(userId);
+    /**
+     * 获取图片上传的路径
+     *
+     * @param userId 用户id
+     * @param more   图片名称
+     * @return
+     */
+    public static Location getUploadImagePath(String userId, String... more) {
+        return camera().path(UPLOAD_IMAGES, userId).get(more);
     }
-
 
 }
