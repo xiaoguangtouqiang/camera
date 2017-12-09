@@ -2,7 +2,6 @@
     <nav class="nav-wide">
         <div class="nav-left">
             <a ui-sref="home" class="navLogo">
-
                 <img src="content/images/camera.png"/>
                 <span>Photo Share</span>
             </a>
@@ -13,16 +12,6 @@
                 <li class="supnav-item">
                     <a href="https://tuchong.com/events/" ui-sref-active="sss">后期教程</a>
                 </li>
-                <!--<li class="supnav-item subnav-trigger">-->
-                <!--<a href="https://tuchong.com/explore/">发现</a>-->
-                <!--<ul class="subnav-list">-->
-                <!--<li><a href="https://tuchong.com/explore/">标签</a></li>-->
-                <!--<li><a href="https://tuchong.com/contacts/">摄影师</a></li>-->
-                <!--<li><a href="https://tuchong.com/vision/">影像频道</a></li>-->
-                <!--<li><a href="https://tuchong.com/course/">教程</a></li>-->
-                <!--<li><a href="https://tuchong.com/equipments/">器材</a></li>-->
-                <!--</ul>-->
-                <!--</li>-->
             </ul>
         </div>
         <div class="nav-right">
@@ -81,9 +70,9 @@
                 </li>
             </ul>
             <span ng-show="!vm.isAuthenticated">
-            <a class="nav-login login-trigger" ng-click="vm.login()">登录</a>
-            <a class="nav-register register-trigger" ng-click="vm.register()">注册</a>
-                </span>
+                <a class="nav-login login-trigger" ng-click="vm.login()">登录</a>
+                <a class="nav-register register-trigger" ng-click="vm.register()">注册</a>
+            </span>
         </div>
     </nav>
 </header>
