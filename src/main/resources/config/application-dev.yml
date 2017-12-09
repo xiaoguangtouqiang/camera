@@ -30,9 +30,9 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/Camera?useUnicode=true&characterEncoding=utf8&useSSL=false
+        url: jdbc:mysql://192.168.99.100:3306/Camera?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
-        password: root
+        password:
         hikari:
                data-source-properties:
                     cachePrepStmts: true

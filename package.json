@@ -58,9 +58,6 @@
     "run-sequence": "1.2.2",
     "yargs": "5.0.0"
   },
-  "engines": {
-    "node": "^4.3"
-  },
   "scripts": {
     "test": "gulp test"
   },
