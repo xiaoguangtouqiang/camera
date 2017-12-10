@@ -258,13 +258,21 @@ button[disabled], html input[disabled] {
 }
 
 .navLogo span {
-    font-size: 25px;
+    font-size: 19px;
     color: white;
     margin: auto;
-    font-weight: 800;
+    font-weight: 600;
     margin-left: 10px;
+    font-family: serif;
+    letter-spacing: 5px;
 }
 
 .margin-auto {
     margin: auto;
+}
+.supnav-item .login-trigger:hover{
+    color:#c99a05;
+}
+.supnav-item .register-trigger{
+    color:white;
 }

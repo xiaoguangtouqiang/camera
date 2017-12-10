@@ -3,44 +3,27 @@
         <div class="nav-left">
             <a ui-sref="home" class="navLogo">
                 <img src="content/images/camera.png"/>
-                <span>Photo Share</span>
+                <span>图享网</span>
             </a>
             <ul class="supnav-list">
                 <li class="supnav-item">
-                    <a ui-sref="home" ui-sref-active="active">首页</a>
+                    <a ui-sref="home">首页</a>
                 </li>
                 <li class="supnav-item">
-                    <a href="https://tuchong.com/events/" ui-sref-active="sss">后期教程</a>
+                    <a ui-sref-active="sss">教程</a>
                 </li>
             </ul>
         </div>
         <div class="nav-right">
-            <div class="nav-search">
-                <i class="icon-search J-search-btn"></i>
-                <form action="https://tuchong.com/search/all/" method="get">
-                    <input required="" class="search-input" type="text" name="query" placeholder="搜索"
-                           autocomplete="off">
-                </form>
-            </div>
             <ul ng-show="vm.isAuthenticated" class="supnav-list">
                 <li class="supnav-item nav-user subnav-trigger">
                     <a class="user-info" href="https://tuchong.com/2302829/">
                         <img src="https://s1.tuchong.com/sites/230/2302829/logo_small.jpg?1">
                         {{vm.account.login}}
                     </a>
-
                     <ul class="subnav-list">
                         <li>
                             <a ui-sref="user-posts">我的主页</a>
-                        </li>
-                        <li>
-                            <a href="https://top.tuchong.com/pr">我的图库</a>
-                        </li>
-                        <li>
-                            <a href="https://tuchong.com/2302829/favorites">我的喜欢</a>
-                        </li>
-                        <li>
-                            <a href="https://tuchong.com/2302829/following">我的关注</a>
                         </li>
                         <li>
                             <a href="https://tuchong.com/settings">设置</a>
@@ -50,26 +33,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="supnav-item nav-messages subnav-trigger" data-count="">
-                    <a class="icon-message" title="通知" href="https://tuchong.com/messages/interaction"></a>
-                    <ul class="subnav-list">
-                        <li><a href="https://tuchong.com/messages/interaction?tab=0">评论</a></li>
-                        <li><a href="https://tuchong.com/messages/interaction?tab=1">喜欢</a></li>
-                        <li><a href="https://tuchong.com/messages/interaction?tab=2">赞同</a></li>
-                        <li><a href="https://tuchong.com/messages/interaction?tab=3">收藏</a></li>
-                        <li class="subnav-separator"><a href="https://tuchong.com/messages/system?tab=0">站内信</a></li>
-                        <li><a href="https://tuchong.com/messages/system?tab=1">通知</a></li>
-                    </ul>
-                </li>
-                <li class="supnav-item subnav-trigger nav-publish">
-                    <a class="publish-btn btn btn-yellow" ui-sref="image-upload">发布</a>
-                    <ul class="subnav-list">
-                        <li><a ui-sref="image-upload">发照片</a></li>
-                        <li><a href="https://tuchong.com/new-text/">发文章</a></li>
-                    </ul>
-                </li>
             </ul>
-            <span ng-show="!vm.isAuthenticated">
+            <span ng-show="!vm.isAuthenticated" class="supnav-item">
                 <a class="nav-login login-trigger" ng-click="vm.login()">登录</a>
                 <a class="nav-register register-trigger" ng-click="vm.register()">注册</a>
             </span>
